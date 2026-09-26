@@ -6,7 +6,16 @@ import java.time.LocalDate;
 
 public class Bird extends Animal {
 
-    public Bird(String name, LocalDate vaccDate, String ownerName, String email) {
+    public Bird(String name,
+                LocalDate vaccDate,
+                String ownerName,
+                String email
+    ) {
         super(name,vaccDate,ownerName,email);
+    }
+
+    @Override
+    public double getAdoptionFee() {
+        return 0;
     }
 }

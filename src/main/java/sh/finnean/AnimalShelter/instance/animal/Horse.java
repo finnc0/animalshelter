@@ -8,8 +8,18 @@ public class Horse extends Animal {
 
     private boolean isRideable;
 
-    public Horse(String name, LocalDate vaccDate, String ownerName, String email) {
+    public Horse(String name,
+                 LocalDate vaccDate,
+                 String ownerName,
+                 String email
+    ) {
         super(name,vaccDate,ownerName,email);
-        isRideable = false;
+
+        this.isRideable = false;
+    }
+
+    @Override
+    public double getAdoptionFee() {
+        return 0;
     }
 }

@@ -22,9 +22,18 @@ public abstract class Animal{
 
     }
 
-    public abstract void getAdoptionFee();
+    // methods all sub classes must override
+    public abstract double getAdoptionFee();
+    public abstract boolean suitableForFamily();
 
+    // getters
     public String getName() {return this.name;}
     public LocalDate getVaccDate() {return this.vaccDate; }
     public String ownerName() {return this.ownerName;}
+
+    // setters
+    public void setName(String newName) { this.name = newName; }
+    public void setVaccDate(LocalDate newVaccDate) { this.vaccDate = newVaccDate; }
+    public void setOwnerName(String newOwnerName) { this.ownerName = newOwnerName; }
+
 }
