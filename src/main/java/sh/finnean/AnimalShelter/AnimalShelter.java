@@ -26,7 +26,7 @@ public class AnimalShelter {
         csvManager.loadInitialData();
 
         // start main console menu
-        OwnerManagementMenu ownerManagementMenu = new OwnerManagementMenu("Owner MGMT", scanner, ownerManager);
+        OwnerManagementMenu ownerManagementMenu = new OwnerManagementMenu("Owner MGMT", scanner, ownerManager, animalManager);
 
         MainMenu mainMenu = new MainMenu("Main Menu", scanner, ownerManagementMenu);
         mainMenu.run();

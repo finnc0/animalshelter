@@ -18,10 +18,19 @@ public class OwnerManager {
         // we know UUID's are "unique" so next valid check is to verify email doesnt already exist
         String newOwnerEmail = owner.getEmail();
         if (animalOwners.containsKey(newOwnerEmail)) {
-            throw new IllegalStateException("A owner with the specified email already exists.");
+            throw new IllegalStateException("Failed to add new owner! An owner with the provided email already exists.");
         }
         // map owner by email (String)
         animalOwners.put(newOwnerEmail, owner);
+    }
+
+    public Owner getByEmail(String email) throws Exception {
+        if (!this.animalOwners.containsKey(email)) throw new Exception("An owner with the specified email could not be found.");
+        return this.animalOwners.get(email);
+    }
+
+    public void removeOwner(Owner owner) {
+        this.animalOwners.remove(owner.getEmail());
     }
 
     public List<Owner> getAllOwners() {
