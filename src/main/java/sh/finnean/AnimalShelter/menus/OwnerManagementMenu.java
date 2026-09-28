@@ -18,6 +18,7 @@ public class OwnerManagementMenu extends Menu{
 
     @Override
     protected void printOptions() {
+        System.out.println();
         System.out.println("1. Add new owner");
         System.out.println("2. Remove owner");
         System.out.println("3. View owner");
@@ -38,8 +39,15 @@ public class OwnerManagementMenu extends Menu{
                 System.out.print("Enter a phone number: ");
                 long phoneNumber = scanner.nextLong();
                 scanner.nextLine();
+                System.out.println();
 
-                ownerManager.addOwner(new Owner(name, email, phoneNumber));
+                try {
+                    ownerManager.addOwner(new Owner(name, email, phoneNumber));
+                    System.out.println("Successfully added a new owner!");
+                } catch (Error e) {
+                    System.out.println(e.getMessage());
+                }
+
                 break;
             case 4:
                 for (Owner owner : ownerManager.getAllOwners()) {

@@ -15,6 +15,7 @@ public class MainMenu extends Menu {
 
     @Override
     protected void printOptions() {
+        System.out.println();
         System.out.println("1. Owner Management Menu");
         System.out.println("2. Initial Data Import Menu");
         System.out.println("3. Animal Management Menu");
@@ -29,8 +30,10 @@ public class MainMenu extends Menu {
                 ownerManagementMenu.run();
                 return true;
             case 5: return false;
-            default: return true;
+            default:
+                // if number is out of bounds, it will fall to default. Make sure choice is a possible choice
+                System.out.println("Please enter a choice 1-5");
+                return true;
         }
-
     }
 }

@@ -21,11 +21,10 @@ public abstract class Menu {
             System.out.println();
             // then verify input and handle choices
             try {
-                int i = scanner.nextInt();
-                scanner.nextLine();
-                running = handleChoice(i);
+                int choice = Integer.parseInt(scanner.nextLine());
+                running = handleChoice(choice);
             } catch (NumberFormatException e1) {
-                System.out.println("Must enter choice with a number.");
+                System.out.println("Please enter a valid choice.");
             }
         }
     }
