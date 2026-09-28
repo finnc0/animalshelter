@@ -2,14 +2,17 @@ package sh.finnean.AnimalShelter.instance.animal;
 
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
+import sh.finnean.AnimalShelter.instance.contracts.Adoptable;
+import sh.finnean.AnimalShelter.instance.contracts.Friendly;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import java.time.LocalDate;
 
-public class Cat extends Animal {
+public class Cat extends Animal implements Adoptable, Friendly {
 
     private boolean likesCatNip;
     private boolean litterBoxTrained;
+    private boolean isAdopted;
 
     public Cat(String name,
                LocalDate vaccDate,
@@ -21,6 +24,8 @@ public class Cat extends Animal {
 
         this.likesCatNip = likesCatNip;
         this.litterBoxTrained = litterBoxTrained;
+
+        this.isAdopted = false;
     }
 
     @Override
@@ -41,13 +46,7 @@ public class Cat extends Animal {
         return fee;
     }
 
-    @Override
-    public boolean suitableForFamily() {
-        if (this.likesCatNip) {
-            return this.getVaccDate() != null;
-        }
-        return false;
-    }
+
 
     // getters
     public boolean likesCatNip() { return this.likesCatNip; }
@@ -56,4 +55,28 @@ public class Cat extends Animal {
     // setters
     public void setLikesCatNip(boolean newLikeState) { this.likesCatNip = newLikeState; }
     public void setLitterBoxTrained(boolean litterBoxTrained) { this.litterBoxTrained = litterBoxTrained; }
+
+    @Override
+    public void adopt(Owner owner) {
+
+    }
+
+    @Override
+    public void setAdoptable(boolean adoptionValue) {
+
+    }
+
+    @Override
+    public boolean isAdoptable() {
+        return !this.isAdopted;
+    }
+
+    @Override
+    public boolean isSuitableForFamily() {
+        // cat is suitable for family if they like catnip and have been vacc before
+        if (this.likesCatNip && this.getVaccDate() != null) {
+            return true;
+        }
+        return false;
+    }
 }
