@@ -8,18 +8,18 @@ public abstract class Animal{
     private final long id;
     private String name;
     private LocalDate vaccDate;
-    private String ownerName;
-    private String email;
+    private Owner owner;
 
-    public Animal(String name, LocalDate vaccDate, String ownerName, String email) {
+    // its an animal shelter, we are housing animals, not humans therefore I think
+    // the best approach is to have the animals own the owner object and not vice versa.
+
+    public Animal(String name, LocalDate vaccDate, Owner owner) {
         // creates a pseudo random 64 bit id
         this.id = new SecureRandom().nextInt();
         // set states passed from sub classes via super()
         this.name = name;
         this.vaccDate = vaccDate;
-        this.ownerName = ownerName;
-        this.email = email;
-
+        this.owner = owner;
     }
 
     // methods all sub classes must override
@@ -29,11 +29,11 @@ public abstract class Animal{
     // getters
     public String getName() {return this.name;}
     public LocalDate getVaccDate() {return this.vaccDate; }
-    public String ownerName() {return this.ownerName;}
+    public Owner getOwner() {return this.owner;}
 
     // setters
     public void setName(String newName) { this.name = newName; }
     public void setVaccDate(LocalDate newVaccDate) { this.vaccDate = newVaccDate; }
-    public void setOwnerName(String newOwnerName) { this.ownerName = newOwnerName; }
+    public void setOwner(Owner owner) { this.owner = owner; }
 
 }

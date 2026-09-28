@@ -1,6 +1,7 @@
 package sh.finnean.AnimalShelter.instance.animal;
 
 import sh.finnean.AnimalShelter.instance.Animal;
+import sh.finnean.AnimalShelter.instance.Owner;
 
 import java.time.LocalDate;
 
@@ -10,10 +11,9 @@ public class Horse extends Animal {
 
     public Horse(String name,
                  LocalDate vaccDate,
-                 String ownerName,
-                 String email
+                 Owner owner
     ) {
-        super(name,vaccDate,ownerName,email);
+        super(name,vaccDate,owner);
 
         this.isRideable = false;
     }
@@ -21,5 +21,10 @@ public class Horse extends Animal {
     @Override
     public double getAdoptionFee() {
         return 0;
+    }
+
+    @Override
+    public boolean suitableForFamily() {
+        return false;
     }
 }

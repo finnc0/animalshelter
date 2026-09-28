@@ -1,6 +1,7 @@
 package sh.finnean.AnimalShelter.instance.animal;
 
 import sh.finnean.AnimalShelter.instance.Animal;
+import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import java.time.LocalDate;
@@ -8,16 +9,18 @@ import java.time.LocalDate;
 public class Cat extends Animal {
 
     private boolean likesCatNip;
+    private boolean litterBoxTrained;
 
     public Cat(String name,
                LocalDate vaccDate,
-               String ownerName,
-               String email,
-               boolean likesCatNip
+               Owner owner,
+               boolean likesCatNip,
+               boolean litterBoxTrained
     ) {
-        super(name,vaccDate,ownerName,email);
+        super(name,vaccDate,owner);
 
         this.likesCatNip = likesCatNip;
+        this.litterBoxTrained = litterBoxTrained;
     }
 
     @Override
@@ -48,7 +51,9 @@ public class Cat extends Animal {
 
     // getters
     public boolean likesCatNip() { return this.likesCatNip; }
+    public boolean litterBoxTrained() { return this.litterBoxTrained; }
 
     // setters
     public void setLikesCatNip(boolean newLikeState) { this.likesCatNip = newLikeState; }
+    public void setLitterBoxTrained(boolean litterBoxTrained) { this.litterBoxTrained = litterBoxTrained; }
 }

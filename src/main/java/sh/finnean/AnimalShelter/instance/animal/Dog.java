@@ -1,6 +1,7 @@
 package sh.finnean.AnimalShelter.instance.animal;
 
 import sh.finnean.AnimalShelter.instance.Animal;
+import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import java.time.LocalDate;
@@ -12,12 +13,11 @@ public class Dog extends Animal {
 
     public Dog(String name,
                LocalDate vaccDate,
-               String ownerName,
-               String email,
+               Owner owner,
                boolean likesWalks,
                boolean crateTrained
     ) {
-        super(name,vaccDate,ownerName,email);
+        super(name,vaccDate,owner);
 
         this.likesWalks = likesWalks;
         this.crateTrained = crateTrained;
