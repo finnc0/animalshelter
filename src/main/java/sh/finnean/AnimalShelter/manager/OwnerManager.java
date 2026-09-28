@@ -13,12 +13,12 @@ public class OwnerManager {
         this.animalOwners = new HashMap<>();
     }
 
-    public void addOwner(Owner owner) throws Error {
+    public void addOwner(Owner owner) throws IllegalStateException {
         // for this application we will assume the only @unique fields for Owner objects are the UUID and email.
         // we know UUID's are "unique" so next valid check is to verify email doesnt already exist
         String newOwnerEmail = owner.getEmail();
         if (animalOwners.containsKey(newOwnerEmail)) {
-            throw new Error("A owner with the specified email already exists.");
+            throw new IllegalStateException("A owner with the specified email already exists.");
         }
         // map owner by email (String)
         animalOwners.put(newOwnerEmail, owner);

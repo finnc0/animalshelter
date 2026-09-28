@@ -9,9 +9,9 @@ public class Owner implements Displayable {
     private final UUID id;
     private String name;
     private String email;
-    private long phoneNumber;
+    private String phoneNumber;
 
-    public Owner(String name, String email, long phoneNumber) {
+    public Owner(String name, String email, String phoneNumber) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;

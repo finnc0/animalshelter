@@ -30,24 +30,23 @@ public class OwnerManagementMenu extends Menu{
     protected boolean handleChoice(int choice) {
         switch (choice) {
             case 1:
+                // get info to create an owner
                 System.out.print("Enter a name: ");
                 String name = scanner.nextLine();
 
                 System.out.print("Enter an email: ");
                 String email = scanner.nextLine();
 
-                System.out.print("Enter a phone number: ");
-                long phoneNumber = scanner.nextLong();
-                scanner.nextLine();
-                System.out.println();
+                System.out.print("Enter a phone number e. 843-123-4567: ");
+                String phoneNumber = scanner.nextLine();
 
+                // catch exception if thrown from ownermanager
                 try {
                     ownerManager.addOwner(new Owner(name, email, phoneNumber));
                     System.out.println("Successfully added a new owner!");
-                } catch (Error e) {
+                } catch (IllegalStateException e) {
                     System.out.println(e.getMessage());
                 }
-
                 break;
             case 4:
                 for (Owner owner : ownerManager.getAllOwners()) {
@@ -56,8 +55,11 @@ public class OwnerManagementMenu extends Menu{
                     owner.displayInfo();
                     System.out.println();
                 }
+                break;
             case 5: return false;
+            default:
+                System.out.println("Please enter a choice 1-5.");
         }
-        return false;
+        return true;
     }
 }

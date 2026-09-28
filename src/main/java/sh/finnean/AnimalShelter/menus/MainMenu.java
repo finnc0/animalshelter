@@ -28,12 +28,12 @@ public class MainMenu extends Menu {
         switch (choice) {
             case 1:
                 ownerManagementMenu.run();
-                return true;
+                break;
             case 5: return false;
             default:
                 // if number is out of bounds, it will fall to default. Make sure choice is a possible choice
-                System.out.println("Please enter a choice 1-5");
-                return true;
+                System.out.println("Please enter a choice 1-5.");
         }
+        return true;
     }
 }
