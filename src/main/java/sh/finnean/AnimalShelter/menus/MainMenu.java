@@ -5,10 +5,12 @@ import java.util.Scanner;
 public class MainMenu extends Menu {
 
     private final Scanner scanner;
+    private final OwnerManagementMenu ownerManagementMenu;
 
-    public MainMenu(String title, Scanner scanner) {
+    public MainMenu(String title, Scanner scanner, OwnerManagementMenu ownerManagementMenu) {
         super(title, scanner);
         this.scanner = scanner;
+        this.ownerManagementMenu = ownerManagementMenu;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class MainMenu extends Menu {
     protected boolean handleChoice(int choice) {
         switch (choice) {
             case 1:
-                new OwnerManagementMenu("Owner MGMT", this.scanner).run();
+                ownerManagementMenu.run();
                 return true;
             case 5: return false;
             default: return true;

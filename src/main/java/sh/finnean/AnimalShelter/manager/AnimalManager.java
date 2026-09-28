@@ -1,10 +1,12 @@
 package sh.finnean.AnimalShelter.manager;
 
 import sh.finnean.AnimalShelter.instance.Animal;
+import sh.finnean.AnimalShelter.instance.Owner;
 
 import javax.management.InstanceNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AnimalManager {
 
@@ -33,6 +35,19 @@ public class AnimalManager {
     public void addAnimal(Animal newAnimal) throws IllegalArgumentException {
         if (newAnimal == null) throw new IllegalArgumentException("You must provide an animal to add.");
         animals.add(newAnimal);
+    }
+
+    public Optional<List<Animal>> getOwnersAdoptions(Owner owner) throws InstanceNotFoundException {
+
+        List<Animal> result = new ArrayList<>();
+        for (Animal a : this.animals) {
+            if (a.getOwner().id() == owner.id()) {
+                result.add(a);
+            }
+        }
+
+        if (result.isEmpty()) return Optional.empty();
+        return Optional.of(result);
     }
 
 

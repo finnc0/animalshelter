@@ -1,8 +1,10 @@
 package sh.finnean.AnimalShelter.instance;
 
+import sh.finnean.AnimalShelter.instance.contracts.Displayable;
+
 import java.util.UUID;
 
-public class Owner {
+public class Owner implements Displayable {
 
     private final UUID id;
     private String name;
@@ -18,6 +20,15 @@ public class Owner {
 
     // getters
     public String getName() { return this.name; }
+    public String getEmail() { return this.email; }
+    public UUID id() { return this.id; }
 
 
+    @Override
+    public void displayInfo() {
+        System.out.println("Owner: " + this.id);
+        System.out.println("Email: " + this.email);
+        System.out.println("Name: " + this.name);
+        System.out.println("Phone number: " + this.phoneNumber);
+    }
 }

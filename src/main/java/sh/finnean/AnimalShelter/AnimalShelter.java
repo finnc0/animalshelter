@@ -3,11 +3,13 @@ package sh.finnean.AnimalShelter;
 import sh.finnean.AnimalShelter.factory.VcfFactory;
 import sh.finnean.AnimalShelter.manager.AnimalManager;
 import sh.finnean.AnimalShelter.manager.CsvManager;
+import sh.finnean.AnimalShelter.manager.OwnerManager;
 import sh.finnean.AnimalShelter.menus.MainMenu;
+import sh.finnean.AnimalShelter.menus.OwnerManagementMenu;
 
 import java.util.Scanner;
 
-public class Main {
+public class AnimalShelter {
 
     // first thing to do when program starts is to load the csv into the system. Csv manager should handle the parsing and
     // loading of data into lists based on animal type. After that, it will call animal manager to import those lists into the main
@@ -17,13 +19,17 @@ public class Main {
     private static AnimalManager animalManager = new AnimalManager();
     private static VcfFactory vcfFactory = new VcfFactory(animalManager);
     private static CsvManager csvManager = new CsvManager(animalManager);
+    private static OwnerManager ownerManager = new OwnerManager();
 
     public static void main(String[] args) {
         // load in data from csv.
         csvManager.loadInitialData();
 
         // start main console menu
-        MainMenu mainMenu = new MainMenu("Main Menu", scanner);
+        OwnerManagementMenu ownerManagementMenu = new OwnerManagementMenu("Owner MGMT", scanner, ownerManager);
+
+        MainMenu mainMenu = new MainMenu("Main Menu", scanner, ownerManagementMenu);
         mainMenu.run();
     }
+
 }
