@@ -4,11 +4,12 @@ import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.instance.contracts.Adoptable;
 import sh.finnean.AnimalShelter.instance.contracts.Behavior;
+import sh.finnean.AnimalShelter.instance.contracts.Displayable;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import java.time.LocalDate;
 
-public class Cat extends Animal implements Adoptable, Behavior {
+public class Cat extends Animal implements Adoptable, Behavior, Displayable {
 
     private boolean likesCatNip;
     private boolean litterBoxTrained;
@@ -78,5 +79,17 @@ public class Cat extends Animal implements Adoptable, Behavior {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Shelter Animal: Cat");
+        System.out.println("ID: " + this.id());
+        System.out.println("Name: " + this.getName());
+        System.out.println("Likes Catnip: " + this.likesCatNip);
+        System.out.println("Owner Name: " + this.getOwner().getName());
+        System.out.println("Vacc Date: " + this.getVaccDate());
+        System.out.println("Is Adopted: " + this.isAdopted());
+        System.out.println("Litterbox trained: " + this.litterBoxTrained);
     }
 }

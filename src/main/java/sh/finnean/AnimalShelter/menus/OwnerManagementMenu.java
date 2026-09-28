@@ -1,9 +1,16 @@
 package sh.finnean.AnimalShelter.menus;
 
+import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
+import sh.finnean.AnimalShelter.instance.animal.Bird;
+import sh.finnean.AnimalShelter.instance.animal.Cat;
+import sh.finnean.AnimalShelter.instance.animal.Dog;
+import sh.finnean.AnimalShelter.instance.animal.Horse;
 import sh.finnean.AnimalShelter.manager.AnimalManager;
 import sh.finnean.AnimalShelter.manager.OwnerManager;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -54,7 +61,7 @@ public class OwnerManagementMenu extends Menu{
                 break;
             case 2:
                 // we will remove by accepting an email.
-                System.out.println("Please enter an email: ");
+                System.out.print("Please enter an email: ");
                 String searchEmail = scanner.nextLine();
                 // if owner could not be found with email, the exception will be thrown.
                 try {
@@ -71,6 +78,48 @@ public class OwnerManagementMenu extends Menu{
                     System.out.println(e.getMessage());
                 }
                 break;
+            case 3:
+                System.out.print("Please enter an email: ");
+                String viewingEmail = scanner.nextLine();
+
+                // get owner obj and get adopted pets
+                try {
+                    Owner viewingOwner = ownerManager.getByEmail(viewingEmail);
+                    // successfully have owner obj
+                    // next get adopted pets
+                    Optional<List<Animal>> adoptions = animalManager.getOwnersAdoptions(viewingOwner);
+
+                    // finally display info
+                    System.out.println("---Owner Detail View---");
+                    viewingOwner.displayInfo();
+
+                    if (adoptions.isEmpty()) {
+                        System.out.println("Owner has no current adoptions.");
+                    } else {
+                        for (Animal a : adoptions.get()) {
+                            switch (a) {
+                                case Dog d:
+                                    d.displayInfo();
+                                    break;
+                                case Horse h:
+                                    h.displayInfo();
+                                    break;
+                                case Cat c:
+                                    c.displayInfo();
+                                    break;
+                                case Bird b:
+                                    b.displayInfo();
+                                    break;
+                                default:
+                                    System.out.println("Invalid pet.");
+                            }
+                            // new line after each adoption is printed.
+                            System.out.println();
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             case 4:
                 for (Owner owner : ownerManager.getAllOwners()) {
                     // print new line above and before owner data

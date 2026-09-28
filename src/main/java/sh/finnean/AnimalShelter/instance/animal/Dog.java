@@ -4,11 +4,12 @@ import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.instance.contracts.Adoptable;
 import sh.finnean.AnimalShelter.instance.contracts.Behavior;
+import sh.finnean.AnimalShelter.instance.contracts.Displayable;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import java.time.LocalDate;
 
-public class Dog extends Animal implements Adoptable, Behavior {
+public class Dog extends Animal implements Adoptable, Behavior, Displayable {
 
     private boolean likesWalks;
     private boolean crateTrained;
@@ -85,4 +86,15 @@ public class Dog extends Animal implements Adoptable, Behavior {
     public void setLikesWalks(boolean likesWalks) { this.likesWalks = likesWalks; }
 
 
+    @Override
+    public void displayInfo() {
+        System.out.println("Shelter Animal: Dog");
+        System.out.println("ID: " + this.id());
+        System.out.println("Name: " + this.getName());
+        System.out.println("Likes Walks: " + this.likesWalks);
+        System.out.println("Owner Name: " + this.getOwner().getName());
+        System.out.println("Vacc Date: " + this.getVaccDate());
+        System.out.println("Is Adopted: " + this.isAdopted());
+        System.out.println("Crate Trained: " + this.crateTrained);
+    }
 }
