@@ -4,6 +4,7 @@ import sh.finnean.AnimalShelter.factory.VcfFactory;
 import sh.finnean.AnimalShelter.manager.AnimalManager;
 import sh.finnean.AnimalShelter.manager.CsvManager;
 import sh.finnean.AnimalShelter.manager.OwnerManager;
+import sh.finnean.AnimalShelter.menus.DataIngestionMenu;
 import sh.finnean.AnimalShelter.menus.MainMenu;
 import sh.finnean.AnimalShelter.menus.OwnerManagementMenu;
 
@@ -22,13 +23,12 @@ public class AnimalShelter {
     private static OwnerManager ownerManager = new OwnerManager();
 
     public static void main(String[] args) {
-        // load in data from csv.
-        csvManager.loadInitialData();
 
         // start main console menu
         OwnerManagementMenu ownerManagementMenu = new OwnerManagementMenu("Owner MGMT", scanner, ownerManager, animalManager);
+        DataIngestionMenu dataIngestionMenu = new DataIngestionMenu("Data Ingestion", scanner,csvManager);
 
-        MainMenu mainMenu = new MainMenu("Main Menu", scanner, ownerManagementMenu);
+        MainMenu mainMenu = new MainMenu("Main Menu", scanner, ownerManagementMenu, dataIngestionMenu);
         mainMenu.run();
     }
 

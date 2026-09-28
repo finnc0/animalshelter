@@ -1,16 +1,20 @@
 package sh.finnean.AnimalShelter.menus;
 
+import sh.finnean.AnimalShelter.instance.Menu;
+
 import java.util.Scanner;
 
 public class MainMenu extends Menu {
 
     private final Scanner scanner;
     private final OwnerManagementMenu ownerManagementMenu;
+    private final DataIngestionMenu dataIngestionMenu;
 
-    public MainMenu(String title, Scanner scanner, OwnerManagementMenu ownerManagementMenu) {
+    public MainMenu(String title, Scanner scanner, OwnerManagementMenu ownerManagementMenu, DataIngestionMenu dataIngestionMenu) {
         super(title, scanner);
         this.scanner = scanner;
         this.ownerManagementMenu = ownerManagementMenu;
+        this.dataIngestionMenu = dataIngestionMenu;
     }
 
     @Override
@@ -26,8 +30,13 @@ public class MainMenu extends Menu {
     @Override
     protected boolean handleChoice(int choice) {
         switch (choice) {
+            // owner management menu
             case 1:
                 ownerManagementMenu.run();
+                break;
+                // data ingestion menu
+            case 2:
+                dataIngestionMenu.run();
                 break;
             case 5: return false;
             default:

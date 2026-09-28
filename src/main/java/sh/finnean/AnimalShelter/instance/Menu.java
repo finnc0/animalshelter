@@ -1,4 +1,4 @@
-package sh.finnean.AnimalShelter.menus;
+package sh.finnean.AnimalShelter.instance;
 
 import java.util.Scanner;
 
@@ -21,10 +21,12 @@ public abstract class Menu {
             System.out.println();
             // then verify input and handle choices
             try {
+                // this try block will catch on the below line if the choice isnt an integer, the sub menus will handle whether the number
+                // is not a valid option
                 int choice = Integer.parseInt(scanner.nextLine());
                 running = handleChoice(choice);
             } catch (NumberFormatException e1) {
-                System.out.println("Please enter a valid choice.");
+                System.out.println("Please enter a valid number.");
             }
         }
     }
