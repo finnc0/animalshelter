@@ -1,6 +1,6 @@
 package sh.finnean.AnimalShelter.instance.contracts;
 
-public interface Friendly {
+public interface Behavior {
     boolean isSuitableForFamily();
 
 }

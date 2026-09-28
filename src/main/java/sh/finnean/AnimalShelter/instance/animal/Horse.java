@@ -4,12 +4,12 @@ import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.instance.contracts.Adoptable;
 import sh.finnean.AnimalShelter.instance.contracts.Displayable;
-import sh.finnean.AnimalShelter.instance.contracts.Friendly;
+import sh.finnean.AnimalShelter.instance.contracts.Behavior;
 
 import javax.management.InstanceNotFoundException;
 import java.time.LocalDate;
 
-public class Horse extends Animal implements Adoptable, Friendly, Displayable {
+public class Horse extends Animal implements Adoptable, Behavior, Displayable {
 
     private boolean isRideable;
 

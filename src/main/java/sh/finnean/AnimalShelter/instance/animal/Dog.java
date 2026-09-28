@@ -3,12 +3,12 @@ package sh.finnean.AnimalShelter.instance.animal;
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.instance.contracts.Adoptable;
-import sh.finnean.AnimalShelter.instance.contracts.Friendly;
+import sh.finnean.AnimalShelter.instance.contracts.Behavior;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import java.time.LocalDate;
 
-public class Dog extends Animal implements Adoptable, Friendly {
+public class Dog extends Animal implements Adoptable, Behavior {
 
     private boolean likesWalks;
     private boolean crateTrained;

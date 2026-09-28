@@ -20,8 +20,5 @@ public class Bird extends Animal {
         return 0;
     }
 
-    @Override
-    public boolean suitableForFamily() {
-        return false;
-    }
+
 }
