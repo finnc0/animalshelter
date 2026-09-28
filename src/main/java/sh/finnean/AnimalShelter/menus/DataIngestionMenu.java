@@ -25,8 +25,7 @@ public class DataIngestionMenu extends Menu {
     protected void printOptions() {
         System.out.println();
         System.out.println("1. Search for CSV files to import");
-        System.out.println("2. Input relative path to CSV file");
-        System.out.println("3. Back");
+        System.out.println("2. Back");
     }
 
     @Override
@@ -34,9 +33,9 @@ public class DataIngestionMenu extends Menu {
         switch (choice) {
             case 1:
                 if (!handleFileSearchOption()) break;
-            case 3: return false;
+            case 2: return false;
             default:
-                System.out.println("Please enter a choice 1-3.");
+                System.out.println("Please enter a choice 1-2.");
         }
         return true;
     }

@@ -9,12 +9,14 @@ public class MainMenu extends Menu {
     private final Scanner scanner;
     private final OwnerManagementMenu ownerManagementMenu;
     private final DataIngestionMenu dataIngestionMenu;
+    private final AnimalManagementMenu animalManagementMenu;
 
-    public MainMenu(String title, Scanner scanner, OwnerManagementMenu ownerManagementMenu, DataIngestionMenu dataIngestionMenu) {
+    public MainMenu(String title, Scanner scanner, OwnerManagementMenu ownerManagementMenu, DataIngestionMenu dataIngestionMenu, AnimalManagementMenu animalManagementMenu) {
         super(title, scanner);
         this.scanner = scanner;
         this.ownerManagementMenu = ownerManagementMenu;
         this.dataIngestionMenu = dataIngestionMenu;
+        this.animalManagementMenu = animalManagementMenu;
     }
 
     @Override
@@ -37,6 +39,9 @@ public class MainMenu extends Menu {
                 // data ingestion menu
             case 2:
                 dataIngestionMenu.run();
+                break;
+            case 3:
+                animalManagementMenu.run();
                 break;
             case 5: return false;
             default:
