@@ -11,16 +11,14 @@ import sh.finnean.AnimalShelter.instance.animal.Horse;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import java.io.IOException;
-import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.MissingFormatArgumentException;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import java.util.zip.DataFormatException;
 
 public class CsvManager {
 
@@ -108,61 +106,68 @@ public class CsvManager {
         try {
             List<String[]> rows = readCsv(fileNameToIngest);
 
+
             // loop through all rows in csv and create obj for each row
             for (String[] row : rows) {
-                String type = requireField(row[0], "animal_type");
-                String name = requireField(row[1], "animal_name");
-                String vaccRaw = blankToNull(row[2]);
-                LocalDate vaccDate = vaccRaw == null ? null : LocalDate.parse(vaccRaw);
+                try {
+                    String type = requireField(row[0], "animal_type");
+                    String name = requireField(row[1], "animal_name");
+                    String vaccRaw = blankToNull(row[2]);
+                    LocalDate vaccDate = vaccRaw == null ? null : LocalDate.parse(vaccRaw);
 
 
-                String ownerName = row[3];
-                String ownerEmail = row[4];
-                String ownerPhone = row[5];
+                    String ownerName = row[3];
+                    String ownerEmail = row[4];
+                    String ownerPhone = row[5];
 
-                // parse owner from data
-                Owner owner = parseOwner(ownerName, ownerEmail, ownerPhone);
-                // absolutely need to make sure we add these owners into the owner manager as well
-                if (owner != null) { this.ownerManager.addOwner(owner); }
+                    // parse owner from data
+                    Owner owner = parseOwner(ownerName, ownerEmail, ownerPhone);
+                    // absolutely need to make sure we add these owners into the owner manager as well
+                    if (owner != null) {
+                        this.ownerManager.addOwner(owner);
+                    }
 
-                switch (type.toLowerCase()) {
-                    case "dog":
-                        boolean likesWalks = Boolean.parseBoolean(blankToNull(row[6]));
-                        boolean isCrateTrained = Boolean.parseBoolean(blankToNull(row[7]));
+                    switch (type.toLowerCase()) {
+                        case "dog":
+                            boolean likesWalks = Boolean.parseBoolean(blankToNull(row[6]));
+                            boolean isCrateTrained = Boolean.parseBoolean(blankToNull(row[7]));
 
-                        Dog dog = new Dog(name, vaccDate,owner,likesWalks,isCrateTrained);
-                        dogs.add(dog);
+                            Dog dog = new Dog(name, vaccDate, owner, likesWalks, isCrateTrained);
+                            dogs.add(dog);
 
-                        System.out.println("PARSE LOG: Added dog successfully to local container.");
-                        break;
-                    case "cat":
-                        boolean likesCatNip = Boolean.parseBoolean(blankToNull(row[8]));
-                        boolean litterBoxTrained = Boolean.parseBoolean(blankToNull(row[9]));
+                            System.out.println("PARSE LOG: Added dog successfully to local container.");
+                            break;
+                        case "cat":
+                            boolean likesCatNip = Boolean.parseBoolean(blankToNull(row[8]));
+                            boolean litterBoxTrained = Boolean.parseBoolean(blankToNull(row[9]));
 
-                        Cat cat = new Cat(name, vaccDate, owner, likesCatNip, litterBoxTrained);
-                        cats.add(cat);
+                            Cat cat = new Cat(name, vaccDate, owner, likesCatNip, litterBoxTrained);
+                            cats.add(cat);
 
-                        System.out.println("PARSE LOG: Added cat successfully to local container.");
-                        break;
-                    case "bird":
-                        boolean canTalk = Boolean.parseBoolean(blankToNull(row[10]));
-                        boolean canFly = Boolean.parseBoolean(blankToNull(row[11]));
+                            System.out.println("PARSE LOG: Added cat successfully to local container.");
+                            break;
+                        case "bird":
+                            boolean canTalk = Boolean.parseBoolean(blankToNull(row[10]));
+                            boolean canFly = Boolean.parseBoolean(blankToNull(row[11]));
 
-                        Bird bird = new Bird(name, vaccDate, owner,canTalk,canFly);
-                        birds.add(bird);
+                            Bird bird = new Bird(name, vaccDate, owner, canTalk, canFly);
+                            birds.add(bird);
 
-                        System.out.println("PARSE LOG: Added bird successfully to local container.");
-                        break;
-                    case "horse":
-                        boolean isRideable = Boolean.parseBoolean(blankToNull(row[12]));
+                            System.out.println("PARSE LOG: Added bird successfully to local container.");
+                            break;
+                        case "horse":
+                            boolean isRideable = Boolean.parseBoolean(blankToNull(row[12]));
 
-                        Horse horse = new Horse(name, vaccDate, owner, isRideable);
-                        horses.add(horse);
+                            Horse horse = new Horse(name, vaccDate, owner, isRideable);
+                            horses.add(horse);
 
-                        System.out.println("PARSE LOG: Added horse successfully to local container.");
-                        break;
-                    default:
-                        System.out.println("PARSE LOG: animal_type not valid.");
+                            System.out.println("PARSE LOG: Added horse successfully to local container.");
+                            break;
+                        default:
+                            System.out.println("PARSE LOG: animal_type not valid.");
+                    }
+                } catch (IllegalStateException | DateTimeParseException e) {
+                    System.out.println("PARSE LOG ERROR: An error occurred parsing row: " + (rows.indexOf(row) + 1) + " SKIPPING! - Error: " + e.getMessage());
                 }
             }
             this.animalManager.addAnimals(dogs);
@@ -171,8 +176,8 @@ public class CsvManager {
             this.animalManager.addAnimals(horses);
 
             System.out.println("PARSE LOG: Added all animals to system manager successfully.");
-        } catch (CsvValidationException | IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        } catch (CsvValidationException e) {
+            System.out.println("An error occurred parsing the CSV. Error: " + e.getMessage());
         }
     }
 }

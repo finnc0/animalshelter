@@ -27,7 +27,7 @@ public class Dog extends Animal implements Adoptable, Behavior, Displayable {
         this.likesWalks = likesWalks;
         this.crateTrained = crateTrained;
 
-        this.isAdopted = false;
+        this.isAdopted = owner != null;
     }
 
     @Override

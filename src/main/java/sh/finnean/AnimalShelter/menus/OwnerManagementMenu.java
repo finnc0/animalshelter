@@ -131,6 +131,8 @@ public class OwnerManagementMenu extends Menu {
             if (adoptions.isEmpty()) {
                 System.out.println("Owner has no current adoptions.");
             } else {
+                System.out.println("---ADOPTED PETS---");
+                System.out.println();
                 for (Animal a : adoptions.get()) {
                     switch (a) {
                         case Dog d:

@@ -25,7 +25,7 @@ public class Bird extends Animal implements Adoptable, Behavior, Displayable {
     ) {
         super(name,vaccDate,owner);
 
-        this.isAdopted = false;
+        this.isAdopted = owner != null;
         this.canTalk = canTalk;
         this.canFly = canFly;
     }

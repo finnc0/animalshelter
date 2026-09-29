@@ -27,7 +27,7 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
         this.likesCatNip = likesCatNip;
         this.litterBoxTrained = litterBoxTrained;
 
-        this.isAdopted = false;
+        this.isAdopted = owner != null;
     }
 
     @Override

@@ -26,7 +26,9 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
 
         // set a default value, will get updated during CSV import if field is other than false in CSV row.
         this.isRideable = isRideable;
-        this.isAdopted = false;
+
+        // we set isAdopted to true if owner obj exists, otherwise its default is false
+        this.isAdopted = owner != null;
     }
 
     // getters
