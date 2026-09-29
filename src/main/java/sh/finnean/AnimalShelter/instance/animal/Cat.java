@@ -2,11 +2,12 @@ package sh.finnean.AnimalShelter.instance.animal;
 
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
-import sh.finnean.AnimalShelter.instance.contracts.Adoptable;
-import sh.finnean.AnimalShelter.instance.contracts.Behavior;
-import sh.finnean.AnimalShelter.instance.contracts.Displayable;
+import sh.finnean.AnimalShelter.contracts.Adoptable;
+import sh.finnean.AnimalShelter.contracts.Behavior;
+import sh.finnean.AnimalShelter.contracts.Displayable;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
+import javax.management.InstanceNotFoundException;
 import java.time.LocalDate;
 
 public class Cat extends Animal implements Adoptable, Behavior, Displayable {
@@ -58,13 +59,18 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
     public void setLitterBoxTrained(boolean litterBoxTrained) { this.litterBoxTrained = litterBoxTrained; }
 
     @Override
-    public void adopt(Owner owner) {
+    public void adopt(Owner owner) throws InstanceNotFoundException, IllegalCallerException {
+        // verify owner is not null;
+        if (owner == null) throw new InstanceNotFoundException("Adopt failed as specified owner could not be found.");
+        if (!isAdoptable()) throw new IllegalCallerException("Adoption failed as animal is already marked as adopted.");
 
+        this.setOwner(owner);
+        this.setAdoptable(true);
     }
 
     @Override
     public void setAdoptable(boolean adoptionValue) {
-
+        this.isAdopted = adoptionValue;
     }
 
     @Override
@@ -89,7 +95,7 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Likes Catnip: " + this.likesCatNip);
         System.out.println("Owner Name: " + this.getOwner().getName());
         System.out.println("Vacc Date: " + this.getVaccDate());
-        System.out.println("Is Adopted: " + this.isAdopted());
+        System.out.println("Is Adopted: " + this.isAdopted);
         System.out.println("Litterbox trained: " + this.litterBoxTrained);
     }
 }

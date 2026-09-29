@@ -2,9 +2,9 @@ package sh.finnean.AnimalShelter.instance.animal;
 
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
-import sh.finnean.AnimalShelter.instance.contracts.Adoptable;
-import sh.finnean.AnimalShelter.instance.contracts.Displayable;
-import sh.finnean.AnimalShelter.instance.contracts.Behavior;
+import sh.finnean.AnimalShelter.contracts.Adoptable;
+import sh.finnean.AnimalShelter.contracts.Displayable;
+import sh.finnean.AnimalShelter.contracts.Behavior;
 
 import javax.management.InstanceNotFoundException;
 import java.time.LocalDate;
@@ -46,13 +46,13 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
     // in case we ever need to add more functionality to setAdoptable, I added this to the interface
     @Override
     public void setAdoptable(boolean adoptionValue) {
-        this.isAdopted = true;
+        this.isAdopted = adoptionValue;
     }
 
     // we need this method for access to the private var isAdopted outside of this class, therefore, it's applied in the interface
     @Override
     public boolean isAdoptable() {
-        return !this.isAdopted();
+        return !this.isAdopted;
     }
 
     // if a horse is rideable than it is suitable for a family.
@@ -69,6 +69,6 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Is Rideable: " + this.isRideable);
         System.out.println("Owner Name: " + this.getOwner().getName());
         System.out.println("Vacc Date: " + this.getVaccDate());
-        System.out.println("Is Adopted: " + this.isAdopted());
+        System.out.println("Is Adopted: " + this.isAdopted);
     }
 }

@@ -1,4 +1,4 @@
-package sh.finnean.AnimalShelter.instance.contracts;
+package sh.finnean.AnimalShelter.contracts;
 
 import sh.finnean.AnimalShelter.instance.Owner;
 

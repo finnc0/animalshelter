@@ -1,6 +1,6 @@
 package sh.finnean.AnimalShelter.instance;
 
-import sh.finnean.AnimalShelter.instance.contracts.Displayable;
+import sh.finnean.AnimalShelter.contracts.Displayable;
 
 import java.util.UUID;
 

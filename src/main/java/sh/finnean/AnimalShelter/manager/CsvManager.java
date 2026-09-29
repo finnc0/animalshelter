@@ -1,14 +1,24 @@
 package sh.finnean.AnimalShelter.manager;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvValidationException;
+import sh.finnean.AnimalShelter.instance.animal.Bird;
+import sh.finnean.AnimalShelter.instance.animal.Cat;
+import sh.finnean.AnimalShelter.instance.animal.Dog;
+import sh.finnean.AnimalShelter.instance.animal.Horse;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import java.io.IOException;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import java.util.zip.DataFormatException;
 
 public class CsvManager {
 
@@ -41,7 +51,40 @@ public class CsvManager {
         }
     }
 
+    private List<String[]> readCsv(String fileNameToIngest) throws CsvValidationException {
+        // path looks like $proj_root/data/file.txt
+        Path filePath = Path.of(ShelterUtil.getDataDirURI() + "/" + fileNameToIngest).toAbsolutePath();
+
+        List<String[]> rows = new ArrayList<>();
+
+        try {
+            CSVReader reader = new CSVReaderBuilder(Files.newBufferedReader(filePath)).withSkipLines(1).build();
+
+            String[] fields;
+            // check if the next field the cursor is on is avail to read
+            while ((fields = reader.readNext()) != null) {
+                rows.add(fields);
+            }
+
+        } catch(IOException | CsvValidationException e) {
+            throw new CsvValidationException("An error occurred parsing the file. Error: " + e.getMessage());
+        };
+
+        return rows;
+    }
+
     public void ingestFile(String fileNameToIngest) {
-        System.out.println("INGESTING FILE!!!!!!!!!!! " + fileNameToIngest);
+        List<Dog> dogs = new ArrayList<>();
+        List<Cat> cats = new ArrayList<>();
+        List<Horse> horses = new ArrayList<>();
+        List<Bird> birds = new ArrayList<>();
+
+        try {
+            List<String[]> rows = readCsv(fileNameToIngest);
+
+
+        } catch (CsvValidationException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

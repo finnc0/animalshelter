@@ -2,11 +2,12 @@ package sh.finnean.AnimalShelter.instance.animal;
 
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
-import sh.finnean.AnimalShelter.instance.contracts.Adoptable;
-import sh.finnean.AnimalShelter.instance.contracts.Behavior;
-import sh.finnean.AnimalShelter.instance.contracts.Displayable;
+import sh.finnean.AnimalShelter.contracts.Adoptable;
+import sh.finnean.AnimalShelter.contracts.Behavior;
+import sh.finnean.AnimalShelter.contracts.Displayable;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
+import javax.management.InstanceNotFoundException;
 import java.time.LocalDate;
 
 public class Dog extends Animal implements Adoptable, Behavior, Displayable {
@@ -47,14 +48,13 @@ public class Dog extends Animal implements Adoptable, Behavior, Displayable {
 
 
     @Override
-    public void adopt(Owner owner) {
+    public void adopt(Owner owner) throws InstanceNotFoundException {
         // verify owner is not null;
-        if (owner != null) {
-            this.setOwner(owner);
-            this.setAdoptable(true);
-        } else {
-            System.out.println("Failed to adopt. Owner does not exist.");
-        }
+        if (owner == null) throw new InstanceNotFoundException("Adopt failed as specified owner could not be found.");
+        if (!isAdoptable()) throw new IllegalCallerException("Adoption failed as animal is already marked as adopted.");
+
+        this.setOwner(owner);
+        this.setAdoptable(true);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Dog extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Likes Walks: " + this.likesWalks);
         System.out.println("Owner Name: " + this.getOwner().getName());
         System.out.println("Vacc Date: " + this.getVaccDate());
-        System.out.println("Is Adopted: " + this.isAdopted());
+        System.out.println("Is Adopted: " + this.isAdopted);
         System.out.println("Crate Trained: " + this.crateTrained);
     }
 }
