@@ -2,6 +2,7 @@ package sh.finnean.AnimalShelter.manager;
 
 import sh.finnean.AnimalShelter.instance.Owner;
 
+import javax.management.InstanceNotFoundException;
 import java.util.*;
 
 public class OwnerManager {
@@ -24,8 +25,8 @@ public class OwnerManager {
         animalOwners.put(newOwnerEmail, owner);
     }
 
-    public Owner getByEmail(String email) throws Exception {
-        if (!this.animalOwners.containsKey(email)) throw new Exception("An owner with the specified email could not be found.");
+    public Owner getByEmail(String email) throws InstanceNotFoundException {
+        if (!this.animalOwners.containsKey(email)) throw new InstanceNotFoundException("An owner with the specified email could not be found.");
         return this.animalOwners.get(email);
     }
 

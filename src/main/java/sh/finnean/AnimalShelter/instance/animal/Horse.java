@@ -19,14 +19,21 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
 
     public Horse(String name,
                  LocalDate vaccDate,
-                 Owner owner
+                 Owner owner,
+                 boolean isRideable
     ) {
         super(name,vaccDate,owner);
 
         // set a default value, will get updated during CSV import if field is other than false in CSV row.
-        this.isRideable = false;
+        this.isRideable = isRideable;
         this.isAdopted = false;
     }
+
+    // getters
+    public boolean getIsRideable() { return this.isRideable; }
+
+    // setters
+    public void setIsRideable(boolean isRideable) { this.isRideable = isRideable; }
 
     @Override
     public double getAdoptionFee() {
@@ -67,7 +74,7 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("ID: " + this.id());
         System.out.println("Name: " + this.getName());
         System.out.println("Is Rideable: " + this.isRideable);
-        System.out.println("Owner Name: " + this.getOwner().getName());
+        System.out.println((this.getOwner() != null ? ("Owner Name: " + this.getOwner().getName()) : "No owner linked."));
         System.out.println("Vacc Date: " + this.getVaccDate());
         System.out.println("Is Adopted: " + this.isAdopted);
     }

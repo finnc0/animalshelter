@@ -10,6 +10,7 @@ import sh.finnean.AnimalShelter.instance.animal.Horse;
 import sh.finnean.AnimalShelter.manager.AnimalManager;
 import sh.finnean.AnimalShelter.manager.OwnerManager;
 
+import javax.management.InstanceNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -101,13 +102,13 @@ public class OwnerManagementMenu extends Menu {
             Owner removingOwner = ownerManager.getByEmail(searchEmail);
             // email is valid and maps to an owner
             // now check if the owner has any adopted pets on their file, if so deny the removal
-            if (animalManager.getOwnersAdoptions(removingOwner).isPresent()) throw new Exception("Please unadopt your pets first.");
+            if (animalManager.getOwnersAdoptions(removingOwner).isPresent()) throw new IllegalStateException("Please unadopt your pets first.");
 
             // owner is valid for removal
             ownerManager.removeOwner(removingOwner);
             System.out.println("Successfully removed the owner.");
 
-        } catch(Exception e) {
+        } catch(InstanceNotFoundException | IllegalStateException e) {
             System.out.println(e.getMessage());
         }
     }

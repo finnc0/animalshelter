@@ -33,6 +33,7 @@ public class DataIngestionMenu extends Menu {
         switch (choice) {
             case 1:
                 if (!handleFileSearchOption()) break;
+                break;
             case 2: return false;
             default:
                 System.out.println("Please enter a choice 1-2.");

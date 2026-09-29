@@ -1,6 +1,11 @@
 package sh.finnean.AnimalShelter.menus;
 
+import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Menu;
+import sh.finnean.AnimalShelter.instance.animal.Bird;
+import sh.finnean.AnimalShelter.instance.animal.Cat;
+import sh.finnean.AnimalShelter.instance.animal.Dog;
+import sh.finnean.AnimalShelter.instance.animal.Horse;
 import sh.finnean.AnimalShelter.manager.AnimalManager;
 
 import java.util.Scanner;
@@ -52,6 +57,19 @@ public class AnimalManagementMenu extends Menu {
     }
 
     private void getAllAnimals() {
-
+        for (Animal a : this.animalManager.getAllAnimals()) {
+            System.out.println("--Animal Detail View--");
+            System.out.println();
+            switch (a) {
+                case Dog dog -> dog.displayInfo();
+                case Cat cat -> cat.displayInfo();
+                case Horse horse -> horse.displayInfo();
+                case Bird bird -> bird.displayInfo();
+                case null, default -> System.out.println("Invalid animal.");
+            }
+            System.out.println();
+            System.out.println("--------------------------------");
+            System.out.println();
+        }
     }
 }

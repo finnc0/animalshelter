@@ -93,7 +93,7 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("ID: " + this.id());
         System.out.println("Name: " + this.getName());
         System.out.println("Likes Catnip: " + this.likesCatNip);
-        System.out.println("Owner Name: " + this.getOwner().getName());
+        System.out.println((this.getOwner() != null ? ("Owner Name: " + this.getOwner().getName()) : "No owner linked."));
         System.out.println("Vacc Date: " + this.getVaccDate());
         System.out.println("Is Adopted: " + this.isAdopted);
         System.out.println("Litterbox trained: " + this.litterBoxTrained);

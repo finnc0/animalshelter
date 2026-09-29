@@ -37,7 +37,7 @@ public class AnimalManager {
         animals.add(newAnimal);
     }
 
-    public Optional<List<Animal>> getOwnersAdoptions(Owner owner) throws InstanceNotFoundException {
+    public Optional<List<Animal>> getOwnersAdoptions(Owner owner) {
 
         List<Animal> result = new ArrayList<>();
         for (Animal a : this.animals) {

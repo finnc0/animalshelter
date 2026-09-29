@@ -20,8 +20,8 @@ public class AnimalShelter {
     private static final Scanner scanner = new Scanner(System.in);
     private static final AnimalManager animalManager = new AnimalManager();
     private static final VcfFactory vcfFactory = new VcfFactory(animalManager);
-    private static final CsvManager csvManager = new CsvManager(animalManager);
     private static final OwnerManager ownerManager = new OwnerManager();
+    private static final CsvManager csvManager = new CsvManager(animalManager, ownerManager);
 
     public static void main(String[] args) {
 

@@ -3,6 +3,7 @@ package sh.finnean.AnimalShelter.manager;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.instance.animal.Bird;
 import sh.finnean.AnimalShelter.instance.animal.Cat;
 import sh.finnean.AnimalShelter.instance.animal.Dog;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingFormatArgumentException;
@@ -23,9 +25,11 @@ import java.util.zip.DataFormatException;
 public class CsvManager {
 
     private final AnimalManager animalManager;
+    private final OwnerManager ownerManager;
 
-    public CsvManager(AnimalManager animalManager) {
+    public CsvManager(AnimalManager animalManager, OwnerManager ownerManager) {
         this.animalManager = animalManager;
+        this.ownerManager = ownerManager;
     }
 
     public List<String> getIngestionFileNames() throws IOException {
@@ -73,6 +77,28 @@ public class CsvManager {
         return rows;
     }
 
+    private String requireField(String field, String fieldName) throws IllegalArgumentException {
+        String result = blankToNull(field);
+        if (result == null) throw new IllegalArgumentException("PARSE LOG: Missing field: " + fieldName);
+        return result;
+    }
+
+    // helper to convert blank csv field to a obj equal to null if it is empty, otherwise it keeps the value
+    private String blankToNull(String input) {
+        return input.isBlank() ? null : input.trim();
+    }
+
+    // helper to parse owner fields as there is some complexity here that can be separated
+    private Owner parseOwner(String name, String email, String phone) throws IllegalArgumentException {
+        String n = blankToNull(name), e = blankToNull(email), p = blankToNull(phone);
+
+        if (n == null && e == null && p == null) return null; // no owner thats fine
+        if (n == null || e == null || p == null) {
+            throw new IllegalArgumentException("PARSE LOG: Owner info is incomplete.");
+        }
+        return new Owner(n, e, p);
+    }
+
     public void ingestFile(String fileNameToIngest) {
         List<Dog> dogs = new ArrayList<>();
         List<Cat> cats = new ArrayList<>();
@@ -82,8 +108,70 @@ public class CsvManager {
         try {
             List<String[]> rows = readCsv(fileNameToIngest);
 
+            // loop through all rows in csv and create obj for each row
+            for (String[] row : rows) {
+                String type = requireField(row[0], "animal_type");
+                String name = requireField(row[1], "animal_name");
+                String vaccRaw = blankToNull(row[2]);
+                LocalDate vaccDate = vaccRaw == null ? null : LocalDate.parse(vaccRaw);
 
-        } catch (CsvValidationException e) {
+
+                String ownerName = row[3];
+                String ownerEmail = row[4];
+                String ownerPhone = row[5];
+
+                // parse owner from data
+                Owner owner = parseOwner(ownerName, ownerEmail, ownerPhone);
+                // absolutely need to make sure we add these owners into the owner manager as well
+                if (owner != null) { this.ownerManager.addOwner(owner); }
+
+                switch (type.toLowerCase()) {
+                    case "dog":
+                        boolean likesWalks = Boolean.parseBoolean(blankToNull(row[6]));
+                        boolean isCrateTrained = Boolean.parseBoolean(blankToNull(row[7]));
+
+                        Dog dog = new Dog(name, vaccDate,owner,likesWalks,isCrateTrained);
+                        dogs.add(dog);
+
+                        System.out.println("PARSE LOG: Added dog successfully to local container.");
+                        break;
+                    case "cat":
+                        boolean likesCatNip = Boolean.parseBoolean(blankToNull(row[8]));
+                        boolean litterBoxTrained = Boolean.parseBoolean(blankToNull(row[9]));
+
+                        Cat cat = new Cat(name, vaccDate, owner, likesCatNip, litterBoxTrained);
+                        cats.add(cat);
+
+                        System.out.println("PARSE LOG: Added cat successfully to local container.");
+                        break;
+                    case "bird":
+                        boolean canTalk = Boolean.parseBoolean(blankToNull(row[10]));
+                        boolean canFly = Boolean.parseBoolean(blankToNull(row[11]));
+
+                        Bird bird = new Bird(name, vaccDate, owner,canTalk,canFly);
+                        birds.add(bird);
+
+                        System.out.println("PARSE LOG: Added bird successfully to local container.");
+                        break;
+                    case "horse":
+                        boolean isRideable = Boolean.parseBoolean(blankToNull(row[12]));
+
+                        Horse horse = new Horse(name, vaccDate, owner, isRideable);
+                        horses.add(horse);
+
+                        System.out.println("PARSE LOG: Added horse successfully to local container.");
+                        break;
+                    default:
+                        System.out.println("PARSE LOG: animal_type not valid.");
+                }
+            }
+            this.animalManager.addAnimals(dogs);
+            this.animalManager.addAnimals(cats);
+            this.animalManager.addAnimals(birds);
+            this.animalManager.addAnimals(horses);
+
+            System.out.println("PARSE LOG: Added all animals to system manager successfully.");
+        } catch (CsvValidationException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
