@@ -49,6 +49,9 @@ public class AnimalManagementMenu extends Menu {
             case 1:
                 this.addAnimal();
                 break;
+            case 2:
+                this.removeAnimal();
+                break;
             case 4:
                 this.getAllAnimals();
                 break;
@@ -57,6 +60,21 @@ public class AnimalManagementMenu extends Menu {
                 System.out.println("Please enter a choice 1-8.");
         }
         return true;
+    }
+
+    private void removeAnimal() {
+        while (true) {
+            try {
+                String rawId = ShelterUtil.strPromptNotBlank("animal id", scanner, null);
+                long id = Long.parseLong(rawId);
+
+                // successfully parsed valid id
+                this.animalManager.removeAnimal(id);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.print("ID is invalid, try again. ");
+            }
+        }
     }
 
     private void addAnimal() {

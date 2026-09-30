@@ -20,6 +20,21 @@ public class AnimalManager {
     public void addAnimals(List<? extends Animal> newAnimals) {
         animals.addAll(newAnimals);
     }
+
+    // remove animal method
+    public void removeAnimal(long id) {
+        try {
+            Animal aToRemove = this.getAnimal(id);
+            if (aToRemove.getOwner() != null) throw new IllegalStateException("This pet is adopted, therefore it must be unadopted first to be removable.");
+
+            // animal is safe to remove
+            this.animals.remove(aToRemove);
+            System.out.println("Successfully removed the animal with id: " + id);
+        } catch (InstanceNotFoundException | IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     // we dont technically need the wildcard for this method sig as animals list only contains instances of the super class
     public List<? extends Animal> getAllAnimals() { return this.animals; }
 
