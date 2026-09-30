@@ -110,6 +110,7 @@ public class CsvManager {
             // loop through all rows in csv and create obj for each row
             for (String[] row : rows) {
                 try {
+                    // field name param which is param 2 for requireField() relates to no logic, it's just used for an error msg description.
                     String type = requireField(row[0], "animal_type");
                     String name = requireField(row[1], "animal_name");
                     String vaccRaw = blankToNull(row[2]);
