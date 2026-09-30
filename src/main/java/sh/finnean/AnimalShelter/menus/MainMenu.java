@@ -27,6 +27,9 @@ public class MainMenu extends Menu {
         System.out.println("3. Animal Management Menu");
         System.out.println("4. Adoption Menu");
         System.out.println("5. Quit");
+
+        System.out.println();
+        System.out.print("Please enter a choice 1-5: ");
     }
 
     @Override
@@ -47,7 +50,7 @@ public class MainMenu extends Menu {
             case 5: return false;
             default:
                 // if number is out of bounds, it will fall to default. Make sure choice is a possible choice
-                System.out.println("Please enter a choice 1-5.");
+                System.out.print("Please enter a choice 1-5.");
         }
         return true;
     }

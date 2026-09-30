@@ -5,10 +5,13 @@ import sh.finnean.AnimalShelter.contracts.Behavior;
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.contracts.Displayable;
+import sh.finnean.AnimalShelter.instance.animalmodmenu.EditableField;
+import sh.finnean.AnimalShelter.instance.animalmodmenu.FieldType;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import javax.management.InstanceNotFoundException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Bird extends Animal implements Adoptable, Behavior, Displayable {
 
@@ -61,6 +64,17 @@ public class Bird extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println((this.getOwner() != null ? ("Owner Name: " + this.getOwner().getName()) : "No owner linked."));
         System.out.println("Vacc Date: " + (this.getVaccDate() == null ? "N/A" : this.getVaccDate()));
         System.out.println("Is Adopted: " + this.isAdopted);
+        System.out.println("Can Fly: " + this.canFly);
+        System.out.println("Can Talk: " + this.canTalk);
+        System.out.println("Is suitable for family: " + this.isSuitableForFamily());
+    }
+
+    @Override
+    public List<EditableField> getEditableFields(Animal a) {
+        List<EditableField> editableFields = super.getEditableFields(a);
+        editableFields.add(new EditableField("can fly", FieldType.BOOLEAN, this::getCanFly, v -> this.setCanFly((boolean) v)));
+        editableFields.add(new EditableField("can talk",FieldType.BOOLEAN, this::getCanTalk, v -> this.setCanTalk((boolean) v)));
+        return editableFields;
     }
 
     @Override

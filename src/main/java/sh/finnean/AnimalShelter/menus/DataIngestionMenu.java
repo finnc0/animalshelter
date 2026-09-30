@@ -26,6 +26,9 @@ public class DataIngestionMenu extends Menu {
         System.out.println();
         System.out.println("1. Search for CSV files to import");
         System.out.println("2. Back");
+
+        System.out.println();
+        System.out.print("Please enter a choice 1-2: ");
     }
 
     @Override

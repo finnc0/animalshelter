@@ -37,6 +37,9 @@ public class OwnerManagementMenu extends Menu {
         System.out.println("3. View owner");
         System.out.println("4. View all owners");
         System.out.println("5. Back");
+
+        System.out.println();
+        System.out.println("Please enter a choice 1-5: ");
     }
 
     @Override
@@ -60,7 +63,7 @@ public class OwnerManagementMenu extends Menu {
                 break;
             case 5: return false;
             default:
-                System.out.println("Please enter a choice 1-5.");
+                System.out.print("Please enter a choice 1-5.");
         }
         return true;
     }
@@ -130,22 +133,7 @@ public class OwnerManagementMenu extends Menu {
                 System.out.println("---ADOPTED PETS---");
                 System.out.println();
                 for (Animal a : adoptions.get()) {
-                    switch (a) {
-                        case Dog d:
-                            d.displayInfo();
-                            break;
-                        case Horse h:
-                            h.displayInfo();
-                            break;
-                        case Cat c:
-                            c.displayInfo();
-                            break;
-                        case Bird b:
-                            b.displayInfo();
-                            break;
-                        default:
-                            System.out.println("Invalid pet.");
-                    }
+                    ShelterUtil.displaySubAnimalInfo(a);
                     // new line after each adoption is printed.
                     System.out.println();
                 }

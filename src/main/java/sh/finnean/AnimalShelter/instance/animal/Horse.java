@@ -5,9 +5,13 @@ import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.contracts.Adoptable;
 import sh.finnean.AnimalShelter.contracts.Displayable;
 import sh.finnean.AnimalShelter.contracts.Behavior;
+import sh.finnean.AnimalShelter.instance.animalmodmenu.EditableField;
+import sh.finnean.AnimalShelter.instance.animalmodmenu.FieldType;
+import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import javax.management.InstanceNotFoundException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Horse extends Animal implements Adoptable, Behavior, Displayable {
 
@@ -38,8 +42,16 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
     public void setIsRideable(boolean isRideable) { this.isRideable = isRideable; }
 
     @Override
+    public List<EditableField> getEditableFields(Animal a) {
+        List<EditableField> editableFields = super.getEditableFields(a);
+        editableFields.add(new EditableField("is rideable", FieldType.BOOLEAN, this::getIsRideable,v -> this.setIsRideable((boolean) v)));
+        return editableFields;
+    }
+
+    @Override
     public double getAdoptionFee() {
-        return 0;
+        // horses are expensive to house in a shelter, so we just add a flat 1000$ fee for every adoption which covers everything (theoretical)
+        return ShelterUtil.horseAdoptionFee() + 1000;
     }
 
     @Override
@@ -79,5 +91,6 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println((this.getOwner() != null ? ("Owner Name: " + this.getOwner().getName()) : "No owner linked."));
         System.out.println("Vacc Date: " + (this.getVaccDate() == null ? "N/A" : this.getVaccDate()));
         System.out.println("Is Adopted: " + this.isAdopted);
+        System.out.println("Is suitable for family: " + this.isSuitableForFamily());
     }
 }

@@ -1,7 +1,12 @@
 package sh.finnean.AnimalShelter.instance;
 
+import sh.finnean.AnimalShelter.instance.animalmodmenu.EditableField;
+import sh.finnean.AnimalShelter.instance.animalmodmenu.FieldType;
+
 import java.security.SecureRandom;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Animal {
 
@@ -31,6 +36,14 @@ public abstract class Animal {
     public LocalDate getVaccDate() {return this.vaccDate; }
     public Owner getOwner() {return this.owner;}
     public long id() { return this.id; }
+
+    public List<EditableField> getEditableFields(Animal a) {
+        List<EditableField> editableFields = new ArrayList<>();
+        editableFields.add(new EditableField("name", FieldType.STRING, this::getName, n ->this.setName((String) n)));
+        editableFields.add(new EditableField("vaccination date",FieldType.DATE, this::getVaccDate, d -> this.setVaccDate((LocalDate) d)));
+
+        return editableFields;
+    }
 
     // setters
     public void setName(String newName) { this.name = newName; }

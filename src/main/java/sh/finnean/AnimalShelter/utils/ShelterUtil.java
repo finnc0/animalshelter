@@ -1,8 +1,15 @@
 package sh.finnean.AnimalShelter.utils;
 
+import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.AnimalType;
+import sh.finnean.AnimalShelter.instance.animal.Bird;
+import sh.finnean.AnimalShelter.instance.animal.Cat;
+import sh.finnean.AnimalShelter.instance.animal.Dog;
+import sh.finnean.AnimalShelter.instance.animal.Horse;
 
 import javax.management.InstanceNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -41,8 +48,48 @@ public class ShelterUtil {
         return result;
     }
 
+    public static LocalDate promptDate(String label, Scanner scanner) {
+        LocalDate vaccDate = null;
+        while (vaccDate == null) {
+            String dateRaw = strPromptNotBlank(label, scanner, "2007-12-0,none").trim();
+            if (dateRaw.toLowerCase().trim().equals("none")) break;
+            try {
+                vaccDate = LocalDate.parse(dateRaw);
+            } catch (DateTimeParseException e) {
+                System.out.print("Date must be valid, try again. ");
+            }
+        }
+        return vaccDate;
+    }
+
+    public static int intPromptInRange(String prompt, Scanner s, int size) {
+        System.out.print(prompt + ": ");
+        while (true) {
+            String choiceStr = s.nextLine();
+
+            if (choiceStr.isBlank()) {
+                System.out.print("You must enter a choice, try again. ");
+                // skip
+                continue;
+            }
+
+            try {
+                int choice = Integer.parseInt(choiceStr);
+
+                // successfully have an int, make sure is in range
+                if (choice > 0 && choice <= size) {
+                    return choice;
+                }
+                System.out.println("Choice must be in range 1-" + size + ": ");
+            } catch (NumberFormatException e) {
+                System.out.print("Choice must be a valid number, try again. ");
+            }
+
+        }
+    }
+
     public static boolean boolPromptNotBlank(String fieldName, Scanner s, AnimalType animalType, String prefix) {
-        // set default sentence prefix.
+        // set default sentence prefix if none is provided. Prefix is used to change the start word of the sentence depending on the context
         if (prefix == null) prefix = "Is";
         String prompt = prefix + " this " + animalType.toString().toLowerCase() + " " + fieldName + "? (true/false): ";
 
@@ -61,5 +108,20 @@ public class ShelterUtil {
                 default -> System.out.println("You must enter either true or false.");
             }
         }
+    }
+
+    public static void displaySubAnimalInfo(Animal a) {
+        System.out.println("--Animal Detail View--");
+        System.out.println();
+        switch (a) {
+            case Dog dog -> dog.displayInfo();
+            case Cat cat -> cat.displayInfo();
+            case Horse horse -> horse.displayInfo();
+            case Bird bird -> bird.displayInfo();
+            case null, default -> System.out.println("Invalid animal.");
+        }
+        System.out.println();
+        System.out.println("--------------------------------");
+        System.out.println();
     }
 }

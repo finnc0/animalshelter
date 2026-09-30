@@ -5,10 +5,13 @@ import sh.finnean.AnimalShelter.instance.Owner;
 import sh.finnean.AnimalShelter.contracts.Adoptable;
 import sh.finnean.AnimalShelter.contracts.Behavior;
 import sh.finnean.AnimalShelter.contracts.Displayable;
+import sh.finnean.AnimalShelter.instance.animalmodmenu.EditableField;
+import sh.finnean.AnimalShelter.instance.animalmodmenu.FieldType;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
 import javax.management.InstanceNotFoundException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Cat extends Animal implements Adoptable, Behavior, Displayable {
 
@@ -28,6 +31,14 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
         this.litterBoxTrained = litterBoxTrained;
 
         this.isAdopted = owner != null;
+    }
+
+    @Override
+    public List<EditableField> getEditableFields(Animal a) {
+        List<EditableField> editableFields = super.getEditableFields(a);
+        editableFields.add(new EditableField("likes catnip", FieldType.BOOLEAN, this::likesCatNip, v -> this.setLikesCatNip((boolean) v)));
+        editableFields.add(new EditableField("litterbox trained",FieldType.BOOLEAN, this::litterBoxTrained, v -> this.setLitterBoxTrained((boolean) v)));
+        return editableFields;
     }
 
     @Override
@@ -97,5 +108,6 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Vacc Date: " + (this.getVaccDate() == null ? "N/A" : this.getVaccDate()));
         System.out.println("Is Adopted: " + this.isAdopted);
         System.out.println("Litterbox trained: " + this.litterBoxTrained);
+        System.out.println("Is suitable for family: " + this.isSuitableForFamily());
     }
 }

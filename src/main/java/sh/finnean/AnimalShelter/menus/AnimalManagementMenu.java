@@ -12,6 +12,7 @@ import sh.finnean.AnimalShelter.instance.animal.Horse;
 import sh.finnean.AnimalShelter.manager.AnimalManager;
 import sh.finnean.AnimalShelter.utils.ShelterUtil;
 
+import javax.management.InstanceNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -34,19 +35,22 @@ public class AnimalManagementMenu extends Menu {
         System.out.println();
         System.out.println("1. Add an animal");
         System.out.println("2. Remove an animal");
-        System.out.println("3. Get a specific animal (including actions)");
+        System.out.println("3. Get a specific animal");
         System.out.println("4. Get all animals");
         System.out.println("5. Get all adopted animals");
         System.out.println("6. Get all un-adopted animals");
         System.out.println("7. Modify an animal");
         System.out.println("8. Create contacts for all animals");
         System.out.println("8. Back");
+
+        System.out.println();
+        System.out.print("Please enter a choice 1-8: ");
+
     }
 
     @Override
     protected boolean handleChoice(int choice) {
         switch (choice) {
-
             // adding an animal
             case 1:
                 this.addAnimal();
@@ -54,14 +58,20 @@ public class AnimalManagementMenu extends Menu {
             case 2:
                 this.removeAnimal();
                 break;
+            case 3:
+                this.getSpecificAnimal();
+                break;
             case 4:
                 this.getAllAnimals();
                 break;
             case 5:
-                this.getAllAnimals(true);
+                this.getAllAnimals(false);
                 break;
             case 6:
-                this.getAllAnimals(false);
+                this.getAllAnimals(true);
+                break;
+            case 7:
+                this.handleModifyAnimal();
                 break;
             case 8:
                 return false;
@@ -69,6 +79,42 @@ public class AnimalManagementMenu extends Menu {
                 System.out.println("Please enter a choice 1-8.");
         }
         return true;
+    }
+
+    private void handleModifyAnimal() {
+        while (true) {
+            try {
+                String rawId = ShelterUtil.strPromptNotBlank("animal id", scanner, null);
+                long id = Long.parseLong(rawId);
+
+                // successfully parsed valid id
+                Animal a = this.animalManager.getAnimal(id);
+
+                // we have valid animal now
+                AnimalModificationMenu aMM = new AnimalModificationMenu("Modifying " + a.getName(),scanner,this.animalManager,a );
+                aMM.run();
+                break;
+            } catch (NumberFormatException | InstanceNotFoundException e) {
+                System.out.print(e instanceof NumberFormatException ? "ID is invalid, try again. " : "Could not find an animal with the provided ID, try again: ");
+            }
+        }
+    }
+
+    private void getSpecificAnimal() {
+        while (true) {
+            try {
+                String rawId = ShelterUtil.strPromptNotBlank("animal id", scanner, null);
+                long id = Long.parseLong(rawId);
+
+                // successfully parsed valid id
+                Animal a = this.animalManager.getAnimal(id);
+
+                ShelterUtil.displaySubAnimalInfo(a);
+                break;
+            } catch (NumberFormatException | InstanceNotFoundException e) {
+                System.out.print(e instanceof NumberFormatException ? "ID is invalid, try again. " : "Could not find an animal with the provided ID, try again: ");
+            }
+        }
     }
 
     private void removeAnimal() {
@@ -163,18 +209,7 @@ public class AnimalManagementMenu extends Menu {
 
     private void getAllAnimals() {
         for (Animal a : this.animalManager.getAllAnimals()) {
-            System.out.println("--Animal Detail View--");
-            System.out.println();
-            switch (a) {
-                case Dog dog -> dog.displayInfo();
-                case Cat cat -> cat.displayInfo();
-                case Horse horse -> horse.displayInfo();
-                case Bird bird -> bird.displayInfo();
-                case null, default -> System.out.println("Invalid animal.");
-            }
-            System.out.println();
-            System.out.println("--------------------------------");
-            System.out.println();
+            ShelterUtil.displaySubAnimalInfo(a);
         }
     }
 
@@ -187,6 +222,7 @@ public class AnimalManagementMenu extends Menu {
             }
             System.out.println("--Animal Detail View--");
             System.out.println();
+            // we cant access displayInfo method if animal does not impl the Displayable interface
             ((Displayable) a).displayInfo();
             System.out.println();
             System.out.println("--------------------------------");
