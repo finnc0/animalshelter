@@ -78,7 +78,7 @@ public class DataIngestionMenu extends Menu {
                 System.out.print("Enter the number of the file you wish to ingest: ");
                 String fileNumberStr = scanner.nextLine();
                 try {
-                    Integer fileNumberInt = Integer.parseInt(fileNumberStr);
+                    int fileNumberInt = Integer.parseInt(fileNumberStr);
 
                     // we can get the file name by using the choice - 1 as our choice lists starts at indexOf(fileNames[idx] +1
                     if (fileNumberInt - 1 > fileNames.size()) throw new IndexOutOfBoundsException();
@@ -86,7 +86,7 @@ public class DataIngestionMenu extends Menu {
                     // ingest file
                     csvManager.ingestFile(fileNameToIngest);
 
-                    // safely exit type check loop as never threw exception for line above.
+                    // safely exit loop
                     run = false;
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     System.out.println("Please enter a number listed.");

@@ -72,7 +72,7 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
 
     @Override
     public void displayInfo() {
-        System.out.println("Shelter Animal: Horse");
+         System.out.println("Shelter Animal: Horse");
         System.out.println("ID: " + this.id());
         System.out.println("Name: " + this.getName());
         System.out.println("Is Rideable: " + this.isRideable);

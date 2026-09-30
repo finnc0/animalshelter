@@ -13,10 +13,6 @@ import java.util.Scanner;
 
 public class AnimalShelter {
 
-    // first thing to do when program starts is to load the csv into the system. Csv manager should handle the parsing and
-    // loading of data into lists based on animal type. After that, it will call animal manager to import those lists into the main
-    // program broad animal container. Vcf factory gets access to animal manager and is called when the option to create the contact
-    // cards is selected within the menus.
     private static final Scanner scanner = new Scanner(System.in);
     private static final AnimalManager animalManager = new AnimalManager();
     private static final VcfFactory vcfFactory = new VcfFactory(animalManager);

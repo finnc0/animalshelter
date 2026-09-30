@@ -170,6 +170,8 @@ public class CsvManager {
                     System.out.println("PARSE LOG ERROR: An error occurred parsing row: " + (rows.indexOf(row) + 1) + " SKIPPING! - Error: " + e.getMessage());
                 }
             }
+
+            // populate system with the parsed animals from the csv
             this.animalManager.addAnimals(dogs);
             this.animalManager.addAnimals(cats);
             this.animalManager.addAnimals(birds);

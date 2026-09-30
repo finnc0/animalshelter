@@ -40,6 +40,7 @@ public class MainMenu extends Menu {
             case 2:
                 dataIngestionMenu.run();
                 break;
+                // animal management menu
             case 3:
                 animalManagementMenu.run();
                 break;

@@ -13,11 +13,13 @@ import java.util.Scanner;
 public class AnimalManagementMenu extends Menu {
 
     private final AnimalManager animalManager;
+    private final Scanner scanner;
 
     public AnimalManagementMenu(String title, Scanner scanner, AnimalManager animalManager) {
         super(title, scanner);
 
         this.animalManager = animalManager;
+        this.scanner = scanner;
     }
 
     @Override
@@ -53,7 +55,10 @@ public class AnimalManagementMenu extends Menu {
     }
 
     private void addAnimal() {
-        System.out.println("Adding an animal");
+        System.out.println("Please enter a name: ");
+        String name = scanner.nextLine();
+
+
     }
 
     private void getAllAnimals() {

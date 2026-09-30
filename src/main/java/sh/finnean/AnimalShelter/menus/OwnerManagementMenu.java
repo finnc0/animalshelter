@@ -69,13 +69,31 @@ public class OwnerManagementMenu extends Menu {
         System.out.print("Enter a name: ");
         String name = scanner.nextLine();
 
+        // if name is blank, keep prompting until we get something
+        while (name.isBlank()) {
+            System.out.print("Name can't be blank. Please enter a name: ");
+            name = scanner.nextLine();
+        }
+
         System.out.print("Enter an email: ");
         String email = scanner.nextLine();
+
+        // if email is blank, keep prompting until we get something
+        while (email.isBlank()) {
+            System.out.print("Email can't be blank. Please enter an email: ");
+            email = scanner.nextLine();
+        }
 
         System.out.print("Enter a phone number e. 843-123-4567: ");
         String phoneNumber = scanner.nextLine();
 
-        // catch exception if thrown from ownermanager
+        // if phone is blank, keep prompting until we get something
+        while (phoneNumber.isBlank()) {
+            System.out.print("Phone can't be blank. Please enter a valid name: ");
+            phoneNumber = scanner.nextLine();
+        }
+
+            // catch exception if thrown from ownermanager
         try {
             ownerManager.addOwner(new Owner(name, email, phoneNumber));
             System.out.println("Successfully added a new owner!");
@@ -97,6 +115,12 @@ public class OwnerManagementMenu extends Menu {
         // we will remove by accepting an email.
         System.out.print("Please enter an email: ");
         String searchEmail = scanner.nextLine();
+
+        // make sure email is not blank, keep prompting till we get len > 0
+        while (searchEmail.isBlank()) {
+            System.out.print("Email must not be blank. Please enter an email: ");
+            searchEmail = scanner.nextLine();
+        }
         // if owner could not be found with email, the exception will be thrown.
         try {
             Owner removingOwner = ownerManager.getByEmail(searchEmail);
@@ -116,6 +140,12 @@ public class OwnerManagementMenu extends Menu {
     private void getOwnerAndAdoptedPets() {
         System.out.print("Please enter an email: ");
         String viewingEmail = scanner.nextLine();
+
+        // make sure email is not blank, keep prompting till we get len > 0
+        while (viewingEmail.isBlank()) {
+            System.out.print("Email must not be blank. Please enter an email: ");
+            viewingEmail = scanner.nextLine();
+        }
 
         // get owner obj and get adopted pets
         try {
