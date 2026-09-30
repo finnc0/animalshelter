@@ -1,5 +1,7 @@
 package sh.finnean.AnimalShelter.menus;
 
+import sh.finnean.AnimalShelter.contracts.Adoptable;
+import sh.finnean.AnimalShelter.contracts.Displayable;
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.AnimalType;
 import sh.finnean.AnimalShelter.instance.Menu;
@@ -43,7 +45,7 @@ public class AnimalManagementMenu extends Menu {
 
     @Override
     protected boolean handleChoice(int choice) {
-        switch(choice) {
+        switch (choice) {
 
             // adding an animal
             case 1:
@@ -55,7 +57,14 @@ public class AnimalManagementMenu extends Menu {
             case 4:
                 this.getAllAnimals();
                 break;
-            case 8: return false;
+            case 5:
+                this.getAllAnimals(true);
+                break;
+            case 6:
+                this.getAllAnimals(false);
+                break;
+            case 8:
+                return false;
             default:
                 System.out.println("Please enter a choice 1-8.");
         }
@@ -91,12 +100,12 @@ public class AnimalManagementMenu extends Menu {
         }
 
         // verify type is one of animal type
-        String name = ShelterUtil.strPromptNotBlank("name", scanner,null);
+        String name = ShelterUtil.strPromptNotBlank("name", scanner, null);
 
         // parse date, make sure it's a valid date.
         LocalDate vaccDate = null;
         while (vaccDate == null) {
-            String vaccDateRaw = ShelterUtil.strPromptNotBlank("vaccination date", scanner,"2007-12-0,none").trim();
+            String vaccDateRaw = ShelterUtil.strPromptNotBlank("vaccination date", scanner, "2007-12-0,none").trim();
             if (vaccDateRaw.toLowerCase().trim().equals("none")) break;
             try {
                 vaccDate = LocalDate.parse(vaccDateRaw);
@@ -110,44 +119,45 @@ public class AnimalManagementMenu extends Menu {
         switch (type) {
             case DOG:
                 // dogs specific fields include crateTrained and likesWalks
-                boolean crateTrained = ShelterUtil.boolPromptNotBlank("crate trained",scanner, AnimalType.DOG, null);
-                boolean likesWalks = ShelterUtil.boolPromptNotBlank("likes walks",scanner, AnimalType.DOG, "Does");
+                boolean crateTrained = ShelterUtil.boolPromptNotBlank("crate trained", scanner, AnimalType.DOG, null);
+                boolean likesWalks = ShelterUtil.boolPromptNotBlank("likes walks", scanner, AnimalType.DOG, "Does");
 
-                Animal dog = new Dog(name,vaccDate,null,likesWalks,crateTrained);
+                Animal dog = new Dog(name, vaccDate, null, likesWalks, crateTrained);
 
                 this.animalManager.addAnimal(dog);
                 System.out.println("Successfully added the dog!");
                 break;
             case CAT:
                 // cat specific fields include likesCatNip and isLitterBoxTrained
-                boolean likesCatNip = ShelterUtil.boolPromptNotBlank("like catnip",scanner, AnimalType.CAT, "Does");
-                boolean isLitterBoxTrained = ShelterUtil.boolPromptNotBlank("litter box trained",scanner, AnimalType.CAT, null);
+                boolean likesCatNip = ShelterUtil.boolPromptNotBlank("like catnip", scanner, AnimalType.CAT, "Does");
+                boolean isLitterBoxTrained = ShelterUtil.boolPromptNotBlank("litter box trained", scanner, AnimalType.CAT, null);
 
-                Animal cat = new Cat(name,vaccDate,null,likesCatNip,isLitterBoxTrained);
+                Animal cat = new Cat(name, vaccDate, null, likesCatNip, isLitterBoxTrained);
 
                 this.animalManager.addAnimal(cat);
                 System.out.println("Successfully added the cat!");
                 break;
             case BIRD:
                 // cat specific fields include likesCatNip and isLitterBoxTrained
-                boolean canTalk = ShelterUtil.boolPromptNotBlank("talk",scanner, AnimalType.BIRD, "Can");
-                boolean canFly = ShelterUtil.boolPromptNotBlank("fly",scanner, AnimalType.BIRD, "Can");
+                boolean canTalk = ShelterUtil.boolPromptNotBlank("talk", scanner, AnimalType.BIRD, "Can");
+                boolean canFly = ShelterUtil.boolPromptNotBlank("fly", scanner, AnimalType.BIRD, "Can");
 
-                Animal bird = new Bird(name,vaccDate,null,canTalk,canFly);
+                Animal bird = new Bird(name, vaccDate, null, canTalk, canFly);
 
                 this.animalManager.addAnimal(bird);
                 System.out.println("Successfully added the bird!");
                 break;
             case HORSE:
                 // horse specific fields include isRideable
-                boolean isRideable = ShelterUtil.boolPromptNotBlank("rideable",scanner, AnimalType.HORSE, null);
+                boolean isRideable = ShelterUtil.boolPromptNotBlank("rideable", scanner, AnimalType.HORSE, null);
 
-                Animal horse = new Horse(name,vaccDate,null,isRideable);
+                Animal horse = new Horse(name, vaccDate, null, isRideable);
 
                 this.animalManager.addAnimal(horse);
                 System.out.println("Successfully added the horse!");
                 break;
-            default: System.out.println("Invalid type. This error should not occur.");
+            default:
+                System.out.println("Invalid type. This error should not occur.");
         }
     }
 
@@ -162,6 +172,22 @@ public class AnimalManagementMenu extends Menu {
                 case Bird bird -> bird.displayInfo();
                 case null, default -> System.out.println("Invalid animal.");
             }
+            System.out.println();
+            System.out.println("--------------------------------");
+            System.out.println();
+        }
+    }
+
+    private void getAllAnimals(boolean adoptable) {
+        for (Animal a : animalManager.getAllAnimals()) {
+            // skip animals that can't be adopted at all and animals that cant display info, or don't match the filter ie.
+            // must implement Adoptable and Displayable interface
+            if (!((a instanceof Adoptable ad) && (a instanceof Displayable)) || ad.isAdoptable() != adoptable) {
+                continue;
+            }
+            System.out.println("--Animal Detail View--");
+            System.out.println();
+            ((Displayable) a).displayInfo();
             System.out.println();
             System.out.println("--------------------------------");
             System.out.println();
