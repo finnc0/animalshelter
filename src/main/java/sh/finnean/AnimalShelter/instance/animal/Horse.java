@@ -64,6 +64,14 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
         this.setAdoptable(true);
     }
 
+    @Override
+    public void unAdopt() {
+        if (this.isAdoptable()) throw new IllegalCallerException("Animal is already unadopted.");
+        // able to be unadopted.
+        this.setOwner(null);
+        this.setAdoptable(true);
+    }
+
     // in case we ever need to add more functionality to setAdoptable, I added this to the interface
     @Override
     public void setAdoptable(boolean adoptionValue) {

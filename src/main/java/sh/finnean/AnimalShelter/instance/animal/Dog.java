@@ -110,4 +110,12 @@ public class Dog extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Crate Trained: " + this.crateTrained);
         System.out.println("Is suitable for family: " + this.isSuitableForFamily());
     }
+
+    @Override
+    public void unAdopt() {
+        if (this.isAdoptable()) throw new IllegalCallerException("Animal is already unadopted.");
+        // able to be unadopted.
+        this.setOwner(null);
+        this.setAdoptable(true);
+    }
 }

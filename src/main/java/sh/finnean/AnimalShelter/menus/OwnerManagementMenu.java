@@ -39,7 +39,7 @@ public class OwnerManagementMenu extends Menu {
         System.out.println("5. Back");
 
         System.out.println();
-        System.out.println("Please enter a choice 1-5: ");
+        System.out.print("Please enter a choice 1-5: ");
     }
 
     @Override

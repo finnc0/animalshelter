@@ -1,7 +1,8 @@
-package sh.finnean.AnimalShelter.menus;
+package sh.finnean.AnimalShelter.menus.animal;
 
 import sh.finnean.AnimalShelter.contracts.Adoptable;
 import sh.finnean.AnimalShelter.contracts.Displayable;
+import sh.finnean.AnimalShelter.factory.VcfFactory;
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.AnimalType;
 import sh.finnean.AnimalShelter.instance.Menu;
@@ -21,13 +22,15 @@ import java.util.Scanner;
 public class AnimalManagementMenu extends Menu {
 
     private final AnimalManager animalManager;
+    private final VcfFactory vcfFactory;
     private final Scanner scanner;
 
-    public AnimalManagementMenu(String title, Scanner scanner, AnimalManager animalManager) {
+    public AnimalManagementMenu(String title, Scanner scanner, AnimalManager animalManager, VcfFactory vcfFactory) {
         super(title, scanner);
 
         this.animalManager = animalManager;
         this.scanner = scanner;
+        this.vcfFactory = vcfFactory;
     }
 
     @Override
@@ -41,10 +44,10 @@ public class AnimalManagementMenu extends Menu {
         System.out.println("6. Get all un-adopted animals");
         System.out.println("7. Modify an animal");
         System.out.println("8. Create contacts for all animals");
-        System.out.println("8. Back");
+        System.out.println("9. Back");
 
         System.out.println();
-        System.out.print("Please enter a choice 1-8: ");
+        System.out.print("Please enter a choice 1-9: ");
 
     }
 
@@ -74,11 +77,19 @@ public class AnimalManagementMenu extends Menu {
                 this.handleModifyAnimal();
                 break;
             case 8:
+                this.handleVcfCreation();
+                break;
+            case 9:
                 return false;
             default:
                 System.out.println("Please enter a choice 1-8.");
         }
         return true;
+    }
+
+    private void handleVcfCreation() {
+        // vcf manager calls
+        vcfFactory.createContacts();
     }
 
     private void handleModifyAnimal() {

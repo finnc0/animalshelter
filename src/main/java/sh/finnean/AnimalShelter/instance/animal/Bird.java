@@ -71,6 +71,14 @@ public class Bird extends Animal implements Adoptable, Behavior, Displayable {
     }
 
     @Override
+    public void unAdopt() {
+        if (this.isAdoptable()) throw new IllegalCallerException("Animal is already unadopted.");
+        // able to be unadopted.
+        this.setOwner(null);
+        this.setAdoptable(true);
+    }
+
+    @Override
     public List<EditableField> getEditableFields(Animal a) {
         List<EditableField> editableFields = super.getEditableFields(a);
         editableFields.add(new EditableField("can fly", FieldType.BOOLEAN, this::getCanFly, v -> this.setCanFly((boolean) v)));

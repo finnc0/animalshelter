@@ -23,6 +23,7 @@ public class ShelterUtil {
     private static final double horseAdoptionBaseFee = 439.99;
 
     private static final String dataDirectoryURI = "data";
+    private static final String vcfDataDirectoryURI = "data/contacts";
 
 
     public static double dogAdoptionFee() { return dogAdoptionBaseFee; }
@@ -31,6 +32,7 @@ public class ShelterUtil {
     public static double horseAdoptionFee() { return horseAdoptionBaseFee; }
 
     public static String getDataDirURI() { return dataDirectoryURI; }
+    public static String getVcfDataDirectoryURI() { return vcfDataDirectoryURI; }
 
     public static String strPromptNotBlank(String fieldName, Scanner s, String example) {
         // looks something like "Please enter a fieldname: " or "Please enter a fieldname e.(example): "

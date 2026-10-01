@@ -60,14 +60,16 @@ public class AdoptionMenu extends Menu {
 
             // verify animal is adoptable
             if (a instanceof Adoptable) {
+                // verify animal is not already adopted
                 // if adoptable, lets get owner and link the two.
                 String email = ShelterUtil.strPromptNotBlank("email", scanner, null);
 
                 // both getByEmail on owner and getAnimal on animalmanager throw instancenotfound, so we dont need to error handle here really other than the catch.
                 Owner owner = ownerManager.getByEmail(email);
 
-                a.setOwner(owner);
-                System.out.printf("Successfully adopted %s.", a.getName());
+                ((Adoptable) a).adopt(owner);
+                System.out.println("Successfully adopted " + a.getName() + ".");
+                return;
             }
             System.out.println("Animal can not be adopted.");
         } catch (InstanceNotFoundException e) {
@@ -80,23 +82,19 @@ public class AdoptionMenu extends Menu {
 
         Animal animal;
         try {
-            animal = animalManager.getAnimal(id);
-        } catch (InstanceNotFoundException e) {
+            animal = this.animalManager.getAnimal(id);
+
+            if (!(animal instanceof Adoptable adoptable)) {
+                System.out.println("Animal can not be adopted or unadopted.");
+                return;
+            }
+
+            adoptable.unAdopt();
+
+        } catch (InstanceNotFoundException | IllegalCallerException e) {
             System.out.println(e.getMessage());
             return;
         }
-
-        if (!(animal instanceof Adoptable adoptable)) {
-            System.out.println("Animal can not be adopted or unadopted.");
-            return;
-        }
-
-        if (!adoptable.isAdoptable()) {
-            System.out.println("Animal is already unadopted.");
-            return;
-        }
-
-        adoptable.setAdoptable(false);
-        animal.setOwner(null);
+        System.out.println("Successfully unadopted " + animal.getName());
     }
 }

@@ -1,4 +1,4 @@
-package sh.finnean.AnimalShelter.menus;
+package sh.finnean.AnimalShelter.menus.animal;
 
 import sh.finnean.AnimalShelter.instance.Animal;
 import sh.finnean.AnimalShelter.instance.AnimalType;

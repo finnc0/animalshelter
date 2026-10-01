@@ -99,6 +99,14 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
     }
 
     @Override
+    public void unAdopt() {
+        if (this.isAdoptable()) throw new IllegalCallerException("Animal is already unadopted.");
+        // able to be unadopted.
+        this.setOwner(null);
+        this.setAdoptable(true);
+    }
+
+    @Override
     public void displayInfo() {
         System.out.println("Shelter Animal: Cat");
         System.out.println("ID: " + this.id());

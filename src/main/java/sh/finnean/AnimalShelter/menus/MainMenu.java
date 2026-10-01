@@ -1,6 +1,7 @@
 package sh.finnean.AnimalShelter.menus;
 
 import sh.finnean.AnimalShelter.instance.Menu;
+import sh.finnean.AnimalShelter.menus.animal.AnimalManagementMenu;
 
 import java.util.Scanner;
 
