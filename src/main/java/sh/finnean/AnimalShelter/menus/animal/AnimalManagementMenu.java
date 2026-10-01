@@ -102,7 +102,7 @@ public class AnimalManagementMenu extends Menu {
                 Animal a = this.animalManager.getAnimal(id);
 
                 // we have valid animal now
-                AnimalModificationMenu aMM = new AnimalModificationMenu("Modifying " + a.getName(),scanner,this.animalManager,a );
+                AnimalModificationMenu aMM = new AnimalModificationMenu("Modifying " + a.getName(),scanner,a );
                 aMM.run();
                 break;
             } catch (NumberFormatException | InstanceNotFoundException e) {

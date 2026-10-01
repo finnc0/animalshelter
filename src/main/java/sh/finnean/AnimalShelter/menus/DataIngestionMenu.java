@@ -9,14 +9,12 @@ import java.util.Scanner;
 
 public class DataIngestionMenu extends Menu {
 
-    private final String title;
     private final Scanner scanner;
     private final CsvManager csvManager;
 
     public DataIngestionMenu(String title, Scanner scanner, CsvManager csvManager) {
         super(title, scanner);
 
-        this.title = title;
         this.scanner = scanner;
         this.csvManager = csvManager;
     }

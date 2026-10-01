@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class MainMenu extends Menu {
 
-    private final Scanner scanner;
     private final OwnerManagementMenu ownerManagementMenu;
     private final DataIngestionMenu dataIngestionMenu;
     private final AnimalManagementMenu animalManagementMenu;
@@ -20,7 +19,6 @@ public class MainMenu extends Menu {
                     AnimalManagementMenu animalManagementMenu,
                     AdoptionMenu adoptionMenu) {
         super(title, scanner);
-        this.scanner = scanner;
         this.ownerManagementMenu = ownerManagementMenu;
         this.dataIngestionMenu = dataIngestionMenu;
         this.animalManagementMenu = animalManagementMenu;

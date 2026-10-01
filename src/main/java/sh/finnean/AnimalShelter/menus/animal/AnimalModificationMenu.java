@@ -12,16 +12,14 @@ import java.util.Scanner;
 
 public class AnimalModificationMenu extends Menu {
 
-    private final AnimalManager animalManager;
     private final Scanner scanner;
     private final Animal animal;
     private List<EditableField> editableFields;
 
-    public AnimalModificationMenu(String title, Scanner scanner, AnimalManager animalManager, Animal animal) {
+    public AnimalModificationMenu(String title, Scanner scanner, Animal animal) {
         super(title, scanner);
 
         this.scanner = scanner;
-        this.animalManager = animalManager;
         this.animal = animal;
         //set default value, used to determine the number of choices for the handle choice method.
     }
