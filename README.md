@@ -4,6 +4,8 @@
 
 **Course:** CSCI 221 – Individual Animal Shelter Project (custom scope)
 
+**Specifications:** I do my best to follow this [Commit Specification](https://www.conventionalcommits.org/en/v1.0.0/)
+
 A console-based animal shelter management system built in Java. It supports managing animals and owners, handling adoptions, importing animals from CSV files, and exporting animals as vCard contacts.
 
 The goal of this project was to apply core object-oriented principles to a production standard, to the best of my abilities, including encapsulation, abstraction, inheritance, polymorphism, and composition, along with others.
@@ -13,10 +15,19 @@ The goal of this project was to apply core object-oriented principles to a produ
 - **OpenCSV** – Parsing CSV files for data import
 - **ez-vcard** – Generating vCard (.vcf) contact files
 
+## Requirements
+
+Beyond the core 4 pillars of OOP, the project included these requirements:
+
+- **Wildcards** – Use Java generic wildcards (e.g. `List<? extends Animal>`) which is an upper bounded wildcard, so collections of animal subclasses can be handled through the shared `Animal` super class.
+- **In-memory Manipulation** – All CRUD operations related to Owners, Animals, etc had to be done in memory meaning no writing back to any files.
+- **vCard generation** – Export animals as vCard (.vcf) contacts
+- **CSV ingestion** – Import animals and owners from CSV files
+
 ## Project Structure
 
 - `data/` – CSV files available for import
-    - `animals.csv` – Dummy animal data (dogs, cats, birds, horses, with optional owners)
+    - `animals.csv` – Dummy animal data (dogs, cats, birds, horses, with optional owners) <- Use for testing
     - `test.csv` – Test file for the import feature
     - `contacts/` – Output folder for generated vCard (.vcf) files
 - `src/main/java/sh/finnean/AnimalShelter/` – All source code
