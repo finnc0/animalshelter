@@ -76,12 +76,12 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
         if (!isAdoptable()) throw new IllegalCallerException("Adoption failed as animal is already marked as adopted.");
 
         this.setOwner(owner);
-        this.setAdoptable(true);
+        this.setAdoptable(false);
     }
 
     @Override
     public void setAdoptable(boolean adoptionValue) {
-        this.isAdopted = adoptionValue;
+        this.isAdopted = !adoptionValue;
     }
 
     @Override
@@ -118,5 +118,6 @@ public class Cat extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Is Adopted: " + this.isAdopted);
         System.out.println("Litterbox trained: " + this.litterBoxTrained);
         System.out.println("Is suitable for family: " + this.isSuitableForFamily());
+        System.out.print("Adoption fee: " + this.getAdoptionFee());
     }
 }

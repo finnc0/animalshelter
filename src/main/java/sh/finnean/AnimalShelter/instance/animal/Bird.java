@@ -68,6 +68,7 @@ public class Bird extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Can Fly: " + this.canFly);
         System.out.println("Can Talk: " + this.canTalk);
         System.out.println("Is suitable for family: " + this.isSuitableForFamily());
+        System.out.print("Adoption fee: " + this.getAdoptionFee());
     }
 
     @Override
@@ -75,7 +76,7 @@ public class Bird extends Animal implements Adoptable, Behavior, Displayable {
         if (this.isAdoptable()) throw new IllegalCallerException("Animal is already unadopted.");
         // able to be unadopted.
         this.setOwner(null);
-        this.setAdoptable(true);
+        this.setAdoptable(false);
     }
 
     @Override
@@ -93,13 +94,14 @@ public class Bird extends Animal implements Adoptable, Behavior, Displayable {
         if (!isAdoptable()) throw new IllegalCallerException("Adoption failed as animal is already marked as adopted.");
 
         this.setOwner(owner);
-        this.setAdoptable(true);
+        this.setAdoptable(false);
     }
 
     @Override
     public void setAdoptable(boolean adoptionValue) {
-        this.isAdopted = adoptionValue;
+        this.isAdopted = !adoptionValue;
     }
+
 
     @Override
     public boolean isAdoptable() {

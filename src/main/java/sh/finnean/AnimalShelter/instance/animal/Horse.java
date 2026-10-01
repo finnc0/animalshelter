@@ -101,5 +101,6 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Vacc Date: " + (this.getVaccDate() == null ? "N/A" : this.getVaccDate()));
         System.out.println("Is Adopted: " + this.isAdopted);
         System.out.println("Is suitable for family: " + this.isSuitableForFamily());
+        System.out.print("Adoption fee: " + this.getAdoptionFee());
     }
 }
