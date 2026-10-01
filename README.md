@@ -4,6 +4,8 @@
 
 **Course:** CSCI 221 – Individual Animal Shelter Project (custom scope)
 
+**Standards:** I do my best to follow this ([commit standard] (https://www.conventionalcommits.org/en/v1.0.0))
+
 A console-based animal shelter management system built in Java. It supports managing animals and owners, handling adoptions, importing animals from CSV files, and exporting animals as vCard contacts.
 
 The goal of this project was to apply core object-oriented principles to a production standard, to the best of my abilities, including encapsulation, abstraction, inheritance, polymorphism, and composition, along with others.
