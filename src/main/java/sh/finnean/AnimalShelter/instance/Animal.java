@@ -19,7 +19,7 @@ public abstract class Animal {
     // the best approach is to have the animals own the owner object and not vice versa.
 
     public Animal(String name, LocalDate vaccDate, Owner owner) {
-        // creates a pseudo random 64 bit id, use bitwise op to strip away the - sign to get max possible num.
+        // creates a pseudo random 31 bit id, use bitwise op to strip away the - sign to get max possible num.
         this.id = new SecureRandom().nextInt() & Integer.MAX_VALUE;
         // set states passed from sub classes via super()
         this.name = name;

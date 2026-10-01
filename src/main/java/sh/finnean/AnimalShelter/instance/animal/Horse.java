@@ -61,7 +61,7 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
         if (!isAdoptable()) throw new IllegalCallerException("Adoption failed as animal is already marked as adopted.");
 
         this.setOwner(owner);
-        this.setAdoptable(true);
+        this.setAdoptable(false);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Horse extends Animal implements Adoptable, Behavior, Displayable {
     // in case we ever need to add more functionality to setAdoptable, I added this to the interface
     @Override
     public void setAdoptable(boolean adoptionValue) {
-        this.isAdopted = adoptionValue;
+        this.isAdopted = !adoptionValue;
     }
 
     // we need this method for access to the private var isAdopted outside of this class, therefore, it's applied in the interface

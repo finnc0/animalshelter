@@ -59,7 +59,7 @@ public class AnimalManager {
             // we need to check if animal has a non-null owner, if an animal obj has a null owner and we dont check
             // we will get a null pointer exception, we can just skip the animals here that have a null owner
             if (a.getOwner() == null) continue;
-            if (a.getOwner().id() == owner.id()) {
+            if (a.getOwner().id().equals(owner.id())) {
                 result.add(a);
             }
         }
