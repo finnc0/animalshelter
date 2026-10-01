@@ -104,6 +104,7 @@ public class Dog extends Animal implements Adoptable, Behavior, Displayable {
         System.out.println("Name: " + this.getName());
         System.out.println("Likes Walks: " + this.likesWalks);
         System.out.println((this.getOwner() != null ? ("Owner Name: " + this.getOwner().getName()) : "No owner linked."));
+        if (this.getOwner() != null) System.out.println("Owner Email: " + this.getOwner().getEmail());
         System.out.println("Vacc Date: " + (this.getVaccDate() == null ? "N/A" : this.getVaccDate()));
         System.out.println("Is Adopted: " + this.isAdopted);
         System.out.println("Crate Trained: " + this.crateTrained);

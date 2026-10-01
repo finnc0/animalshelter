@@ -18,7 +18,6 @@ public abstract class Menu {
             System.out.printf("------- %s -------\n", title);
             // 1st print options
             this.printOptions();
-            System.out.println();
             // then verify input and handle choices
             try {
                 // this try block will catch on the below line if the choice isnt an integer, the sub menus will handle whether the number

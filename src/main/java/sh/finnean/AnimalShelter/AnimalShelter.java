@@ -4,10 +4,7 @@ import sh.finnean.AnimalShelter.factory.VcfFactory;
 import sh.finnean.AnimalShelter.manager.AnimalManager;
 import sh.finnean.AnimalShelter.manager.CsvManager;
 import sh.finnean.AnimalShelter.manager.OwnerManager;
-import sh.finnean.AnimalShelter.menus.AnimalManagementMenu;
-import sh.finnean.AnimalShelter.menus.DataIngestionMenu;
-import sh.finnean.AnimalShelter.menus.MainMenu;
-import sh.finnean.AnimalShelter.menus.OwnerManagementMenu;
+import sh.finnean.AnimalShelter.menus.*;
 
 import java.util.Scanner;
 
@@ -24,9 +21,10 @@ public class AnimalShelter {
         final OwnerManagementMenu ownerManagementMenu = new OwnerManagementMenu("Owner MGMT", scanner, ownerManager, animalManager);
         final DataIngestionMenu dataIngestionMenu = new DataIngestionMenu("Data Ingestion", scanner,csvManager);
         final AnimalManagementMenu animalManagementMenu = new AnimalManagementMenu("Animal MGMT", scanner,animalManager);
+        final AdoptionMenu adoptionMenu = new AdoptionMenu("Adoption Menu", scanner, animalManager);
 
         // start main console menu
-        MainMenu mainMenu = new MainMenu("Main Menu", scanner, ownerManagementMenu, dataIngestionMenu, animalManagementMenu);
+        MainMenu mainMenu = new MainMenu("Main Menu", scanner, ownerManagementMenu, dataIngestionMenu, animalManagementMenu, adoptionMenu);
         mainMenu.run();
     }
 

@@ -64,7 +64,7 @@ public class AnimalModificationMenu extends Menu {
             case DATE    -> ShelterUtil.promptDate(field.label(), scanner);
         };
         field.setter().accept(newValue);
-        System.out.println(field.label() + " updated.");
+        System.out.println("Updated " + field.label() + " successfully!");
         return true;   // stay in the menu
     }
 }

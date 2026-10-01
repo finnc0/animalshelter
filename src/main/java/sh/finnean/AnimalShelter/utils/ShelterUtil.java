@@ -62,6 +62,18 @@ public class ShelterUtil {
         return vaccDate;
     }
 
+    public static long longPromptValidNotBlank(String fieldName, Scanner s) {
+        while (true) {
+            String rawLong = strPromptNotBlank(fieldName, s,null);
+
+            try {
+                return Long.parseLong(rawLong);
+            } catch (NumberFormatException e) {
+                System.out.print("Please enter a valid " + fieldName + ", try again. ");
+            }
+        }
+    }
+
     public static int intPromptInRange(String prompt, Scanner s, int size) {
         System.out.print(prompt + ": ");
         while (true) {
