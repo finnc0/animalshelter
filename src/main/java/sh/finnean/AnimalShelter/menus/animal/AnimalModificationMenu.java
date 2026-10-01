@@ -37,6 +37,8 @@ public class AnimalModificationMenu extends Menu {
         // we add +1 for the quit option at the end of the choice menu.
         System.out.println((editableFieldList.size()+1) + ". Back");
         System.out.println();
+
+        System.out.print("Please enter a choice 1-" + editableFieldList.size()+1 + ": ");
     }
 
     @Override

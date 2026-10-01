@@ -162,7 +162,7 @@ public class AnimalManagementMenu extends Menu {
         // parse date, make sure it's a valid date.
         LocalDate vaccDate = null;
         while (vaccDate == null) {
-            String vaccDateRaw = ShelterUtil.strPromptNotBlank("vaccination date", scanner, "2007-12-0,none").trim();
+            String vaccDateRaw = ShelterUtil.strPromptNotBlank("vaccination date", scanner, "2007-12-01,none").trim();
             if (vaccDateRaw.toLowerCase().trim().equals("none")) break;
             try {
                 vaccDate = LocalDate.parse(vaccDateRaw);
